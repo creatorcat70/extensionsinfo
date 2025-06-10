@@ -1,2 +1,2 @@
 # extensionsinfo
-School Chromebook extension id's and info on what they do. Also has built-in Quality-of-life features that you need when using proxies. Made by @thefakesydney on discord.
+Gives info on unknown school chromebook extensions. Also has some pretty cool extra stuff on it which you probably need (maybe?). Contact @thefakesydney on discord if you have any questions
