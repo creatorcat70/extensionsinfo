@@ -178,7 +178,7 @@
     document.title = text;
   }
 
-  // Customize tab logic for the customize section
+  // Customize tab logic
   function customizeTab(choice) {
     switch(choice) {
       case 'google-search-calculator':
@@ -298,12 +298,11 @@
   function applyTheme(themeName) {
     if (!themeName || !themes[themeName]) return;
     const theme = themes[themeName];
-    // Update background and text colors and font
     document.body.style.backgroundColor = theme.bgColor;
     document.body.style.color = theme.textColor;
     document.body.style.fontFamily = theme.fontFamily;
 
-    // Also update the color pickers and font selector if they exist, so UI stays in sync
+    // Sync UI controls if present
     const bgPicker = document.getElementById('bg-color-picker');
     const textPicker = document.getElementById('text-color-picker');
     const fontSelect = document.getElementById('font-select');
@@ -315,7 +314,7 @@
     if (themeSelect) themeSelect.value = themeName;
   }
 
-  // Helper: Convert rgb(a) or hex color string to hex (#rrggbb)
+  // Helper: Convert rgb(a) or hex to hex string
   function rgbToHex(color) {
     if (!color) return '#000000';
     if (color[0] === '#') return color;
@@ -484,4 +483,4 @@
       stars.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
-        radius: Math.random() * 
+        radius: Math.random() * 1.5 + 0.5
