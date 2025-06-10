@@ -8,25 +8,31 @@
      body {
     margin: 0;
     height: 100vh;
-    background-color: #1a1a2e;
+    background-color: #e6f0ff; /* lighter blue background */
 
-    /* Create a repeating triangle pattern using linear gradients */
     background-image:
-      linear-gradient(60deg, transparent 75%, #6a0dad 75%),
-      linear-gradient(120deg, transparent 75%, #6a0dad 75%);
-    background-size: 60px 104px;
-    background-position: 0 0, 30px 52px;
+      /* Single equilateral triangles pointing up */
+      repeating-linear-gradient(
+        60deg,
+        transparent 0,
+        transparent 34.64px, /* height of equilateral triangle side * sqrt(3)/2 */
+        #6a0dad 34.64px,
+        #6a0dad 51.96px
+      );
+
+    background-size: 60px 60px; /* base length and height */
+    background-position: 0 0;
     background-repeat: repeat;
 
-    animation: moveTriangles 20s linear infinite;
+    animation: slide 15s linear infinite;
   }
 
-  @keyframes moveTriangles {
+  @keyframes slide {
     0% {
-      background-position: 0 0, 30px 52px;
+      background-position: 0 0;
     }
     100% {
-      background-position: 60px 104px, 90px 156px;
+      background-position: 60px 60px;
     }
   }
 
