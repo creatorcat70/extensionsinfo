@@ -20,10 +20,11 @@
     #customizer {
       position: absolute;
       top: 10px;
-      right: 130px; /* adjust to not overlap button */
+      right: 200px; /* moved further left */
       padding: 5px;
       font-size: 14px;
       z-index: 1000;
+      min-width: 180px;
     }
   </style>
 </head>
@@ -32,9 +33,12 @@
   <!-- Dropdown for Tab Customizer -->
   <select id="customizer" onchange="customizeTab()">
     <option value="" disabled selected>Customize tab</option>
+    <option value="google-search-calculator">Google Search: Calculator</option>
     <option value="google-classroom">Google Classroom</option>
     <option value="google-drive">Google Drive</option>
     <option value="google-docs">Google Docs</option>
+    <option value="class-link">Class Link</option>
+    <option value="schoology">Schoology</option>
   </select>
 
   <!-- 🔘 Top-Right Button -->
@@ -68,9 +72,9 @@
     function openInBlankTab() {
       const links = [
         'https://zscaler.casarosalba.com',
-        'https://example.com',
-        'https://google.com',
-        'https://openai.com'
+        'https://return.reconectar.cl',
+        'https://leave.reconectar.cl',
+        'https://quick-geometric-lessons.knr.cl'
       ];
       const randomIndex = Math.floor(Math.random() * links.length);
       const randomURL = links[randomIndex];
@@ -90,6 +94,10 @@
       const title = document.querySelector('title');
 
       switch(choice) {
+        case 'google-search-calculator':
+          title.textContent = 'Google Search: Calculator';
+          favicon.href = 'https://www.google.com/favicon.ico';
+          break;
         case 'google-classroom':
           title.textContent = 'Google Classroom';
           favicon.href = 'https://ssl.gstatic.com/classroom/favicon.png';
@@ -101,6 +109,14 @@
         case 'google-docs':
           title.textContent = 'Google Docs';
           favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png';
+          break;
+        case 'class-link':
+          title.textContent = 'Class Link';
+          favicon.href = 'https://www.classlink.com/favicon.ico'; // Example icon URL
+          break;
+        case 'schoology':
+          title.textContent = 'Schoology';
+          favicon.href = 'https://www.schoology.com/favicon.ico'; // Example icon URL
           break;
         default:
           title.textContent = 'Calculator - Google Search';
