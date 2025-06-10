@@ -6,17 +6,29 @@
   <style>
     /* Hexagon pattern background */
     body {
-  background-color: #073f8e;
+  background-color: #2e003e;
   background-image: 
-    radial-gradient(circle at 30px 26px, #ffffff40 10px, black 11px),
-    radial-gradient(circle at 70px 26px, #ffffff40 10px, white 11px),
-    linear-gradient(60deg, #ffffff30 5px, rgb(128, 5, 190) 6px),
-    linear-gradient(-60deg, #ffffff30 5px, rgb(128, 5, 190) 6px);
+    radial-gradient(circle at 30px 26px, #c084f540 10px, #4b0082 11px),
+    radial-gradient(circle at 70px 26px, #dda0dd40 10px, #8a2be2 11px),
+    linear-gradient(60deg, #ffffff30 5px, #7b68ee 6px),
+    linear-gradient(-60deg, #ffffff30 5px, #7b68ee 6px);
   background-size: 100px 52px;
   background-position: 0 0, 50px 0, 0 0, 50px 0;
   background-repeat: repeat;
   background-blend-mode: multiply;
+
+  animation: scrollHex 20s linear infinite;
 }
+
+@keyframes scrollHex {
+  0% {
+    background-position: 0 0, 50px 0, 0 0, 50px 0;
+  }
+  100% {
+    background-position: 100px 52px, 150px 52px, 100px 52px, 150px 52px;
+  }
+}
+
 
 
     h1, h2, h3 {
