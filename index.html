@@ -19,6 +19,7 @@
       margin: 0;
       padding: 0;
       color: #333;
+      overflow-x: hidden;
     }
 
     h1, h2, h3 {
@@ -65,6 +66,8 @@
       max-width: 900px;
       overflow-y: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1001; /* above canvas */
     }
 
     /* Customize section styles */
@@ -135,9 +138,22 @@
       border-radius: 5px;
     }
 
+    /* Star particles canvas styling */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Star particles canvas -->
+  <canvas id="particle-canvas"></canvas>
 
   <div class="control-panel">
     <button onclick="loadContent('customize')">Customize Page</button>
@@ -195,7 +211,7 @@
     }
   }
 
-  // Proxy open function (reused)
+  // Proxy open function
   function openProxyUrl(url) {
     if (!url) {
       alert("Please enter a valid URL.");
@@ -215,6 +231,10 @@
   // Proxy selector open
   function openSelectedProxy() {
     const select = document.getElementById('proxy-select');
+    if (!select) {
+      alert("Proxy selector not found.");
+      return;
+    }
     const choice = select.value;
     let url;
 
@@ -297,9 +317,8 @@
 
   // Helper: Convert rgb(a) or hex color string to hex (#rrggbb)
   function rgbToHex(color) {
-    // If already hex, return it
+    if (!color) return '#000000';
     if (color[0] === '#') return color;
-    // Otherwise parse rgb format: rgb(12, 34, 56)
     const rgb = color.match(/\d+/g);
     if (!rgb || rgb.length < 3) return '#000000';
     return "#" + rgb.slice(0,3).map(x => {
@@ -349,6 +368,14 @@
           <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
           <option value="'Lucida Console', monospace">Lucida Console</option>
         </select>
+
+        <label for="star-amount">Amount of stars:</label>
+        <select id="star-amount" onchange="updateParticleAmount(this.value)">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+
       </div>
     `,
 
@@ -429,23 +456,32 @@
   // Launch custom URL from proxy utilities
   function launchCustomUrl() {
     const input = document.getElementById('custom-proxy-url');
+    if (!input) {
+      alert("Input field not found.");
+      return;
+    }
     let url = input.value.trim();
     if (!url) {
       alert('Please enter a URL first.');
       return;
     }
-    // Validate url: if no protocol, prepend http://
-    if (!/^https?:\/\//i.test(url)) {
-      url = 'http://' + url;
+    // Add protocol if missing
+    if (!url.match(/^https?:\/\//)) {
+      url = 'https://' + url;
     }
     openProxyUrl(url);
   }
 
-  // Initialize default page — still default to extensions info
-  window.onload = () => {
-    loadContent('extensions');
-  };
-</script>
+  // Star particles logic
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let starAmount = 100; // default medium
 
-</body>
-</html>
+  function createStars(amount) {
+    stars = [];
+    for (let i = 0; i < amount; i++) {
+      stars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        radius: Math.random() * 
