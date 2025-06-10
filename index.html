@@ -19,7 +19,6 @@
       margin: 0;
       padding: 0;
       color: #333;
-      overflow-x: hidden;
     }
 
     h1, h2, h3 {
@@ -66,8 +65,6 @@
       max-width: 900px;
       overflow-y: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 1001; /* above canvas */
     }
 
     /* Customize section styles */
@@ -138,22 +135,9 @@
       border-radius: 5px;
     }
 
-    /* Star particles canvas styling */
-    #particle-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-    }
   </style>
 </head>
 <body>
-
-  <!-- Star particles canvas -->
-  <canvas id="particle-canvas"></canvas>
 
   <div class="control-panel">
     <button onclick="loadContent('customize')">Customize Page</button>
@@ -178,7 +162,7 @@
     document.title = text;
   }
 
-  // Customize tab logic
+  // Customize tab logic for the customize section
   function customizeTab(choice) {
     switch(choice) {
       case 'google-search-calculator':
@@ -211,7 +195,7 @@
     }
   }
 
-  // Proxy open function
+  // Proxy open function (reused)
   function openProxyUrl(url) {
     if (!url) {
       alert("Please enter a valid URL.");
@@ -231,10 +215,6 @@
   // Proxy selector open
   function openSelectedProxy() {
     const select = document.getElementById('proxy-select');
-    if (!select) {
-      alert("Proxy selector not found.");
-      return;
-    }
     const choice = select.value;
     let url;
 
@@ -298,11 +278,12 @@
   function applyTheme(themeName) {
     if (!themeName || !themes[themeName]) return;
     const theme = themes[themeName];
+    // Update background and text colors and font
     document.body.style.backgroundColor = theme.bgColor;
     document.body.style.color = theme.textColor;
     document.body.style.fontFamily = theme.fontFamily;
 
-    // Sync UI controls if present
+    // Also update the color pickers and font selector if they exist, so UI stays in sync
     const bgPicker = document.getElementById('bg-color-picker');
     const textPicker = document.getElementById('text-color-picker');
     const fontSelect = document.getElementById('font-select');
@@ -314,10 +295,11 @@
     if (themeSelect) themeSelect.value = themeName;
   }
 
-  // Helper: Convert rgb(a) or hex to hex string
+  // Helper: Convert rgb(a) or hex color string to hex (#rrggbb)
   function rgbToHex(color) {
-    if (!color) return '#000000';
+    // If already hex, return it
     if (color[0] === '#') return color;
+    // Otherwise parse rgb format: rgb(12, 34, 56)
     const rgb = color.match(/\d+/g);
     if (!rgb || rgb.length < 3) return '#000000';
     return "#" + rgb.slice(0,3).map(x => {
@@ -328,7 +310,7 @@
 
   // Content HTML blocks for each section
   const contentData = {
-    customize: `
+    customize: 
       <h1>Customize Page</h1>
       <div class="customize-section">
 
@@ -367,18 +349,10 @@
           <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
           <option value="'Lucida Console', monospace">Lucida Console</option>
         </select>
-
-        <label for="star-amount">Amount of stars:</label>
-        <select id="star-amount" onchange="updateParticleAmount(this.value)">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-
       </div>
-    `,
+    ,
 
-    extensions: `
+    extensions: 
       <h1>Extension IDs and Their Uses</h1>
       <p style="color: purple;">Contact @thefakesydney on Discord if you know/have any unknown ones.</p>
 
@@ -407,9 +381,9 @@
           <p><a href="https://html.cafe/x5f8ca0af" target="_blank" rel="noopener noreferrer">https://html.cafe/x5f8ca0af</a> - allows you to print a ton of iframes on your computer, which freeze extensions.</p>
         </div>
       </div>
-    `,
+    ,
 
-    proxy: `
+    proxy: 
       <h1>Proxy Utilities</h1>
 
       <div class="proxy-launcher" style="margin-bottom:20px;">
@@ -428,7 +402,7 @@
         </select>
         <button style="margin-top:10px; width: 100%;" onclick="openSelectedProxy()">Open Proxy</button>
       </div>
-    `
+    
   };
 
   // Load content dynamically on button click
@@ -455,32 +429,23 @@
   // Launch custom URL from proxy utilities
   function launchCustomUrl() {
     const input = document.getElementById('custom-proxy-url');
-    if (!input) {
-      alert("Input field not found.");
-      return;
-    }
     let url = input.value.trim();
     if (!url) {
       alert('Please enter a URL first.');
       return;
     }
-    // Add protocol if missing
-    if (!url.match(/^https?:\/\//)) {
-      url = 'https://' + url;
+    // Validate url: if no protocol, prepend http://
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'http://' + url;
     }
     openProxyUrl(url);
   }
 
-  // Star particles logic
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let starAmount = 100; // default medium
+  // Initialize default page — still default to extensions info
+  window.onload = () => {
+    loadContent('extensions');
+  };
+</script>
 
-  function createStars(amount) {
-    stars = [];
-    for (let i = 0; i < amount; i++) {
-      stars.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        radius: Math.random() * 1.5 + 0.5
+</body>
+</html>
