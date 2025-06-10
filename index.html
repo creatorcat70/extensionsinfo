@@ -4,6 +4,18 @@
   <title>ext-info</title>
   <link id="favicon" rel="icon" href="googleicon.png" type="image/png">
   <style>
+    /* Geometric pattern background */
+    body {
+      background-color: #add8e6; /* lightblue */
+      background-image:
+        linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.15) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.15) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.15) 75%);
+      background-size: 40px 40px;
+      background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+    }
+
     .top-right-button {
       position: absolute;
       top: 10px;
@@ -20,7 +32,7 @@
     #customizer {
       position: absolute;
       top: 10px;
-      right: 200px; /* moved further left */
+      right: 200px;
       padding: 5px;
       font-size: 14px;
       z-index: 1000;
@@ -28,7 +40,7 @@
     }
   </style>
 </head>
-<body style="background-color: lightblue;">
+<body>
 
   <!-- Dropdown for Tab Customizer -->
   <select id="customizer" onchange="customizeTab()">
@@ -41,9 +53,9 @@
     <option value="schoology">Schoology</option>
   </select>
 
-  <!-- 🔘 Top-Right Button -->
-  <button class="top-right-button" onclick="openInBlankTab()">
-    Open Cloaked Proxy
+  <!-- 🕹️ Replaced Button: Open Game -->
+  <button class="top-right-button" onclick="openGame()">
+    Open Game
   </button>
 
   <h1>Extension IDs and Their Uses</h1>
@@ -69,21 +81,24 @@
 
   <!-- JavaScript -->
   <script>
-    function openInBlankTab() {
-      const links = [
-        'https://zscaler.casarosalba.com',
-        'https://return.reconectar.cl',
-        'https://leave.reconectar.cl',
-        'https://quick-geometric-lessons.knr.cl'
+    function openGame() {
+      const urls = [
+        "https://return.reconectar.cl",
+        "https://leave.reconectar.cl",
+        "https://quick-geometric-lessons.knr.cl",
+        "https://thisisforandrew.knr.cl"
       ];
-      const randomIndex = Math.floor(Math.random() * links.length);
-      const randomURL = links[randomIndex];
-      const newTab = window.open('about:blank', '_blank');
-      if (newTab) {
-        newTab.location = randomURL;
-      } else {
-        alert('Pop-up blocked! Please allow pop-ups for this site.');
-      }
+      const randomIndex = Math.floor(Math.random() * urls.length);
+      const url = urls[randomIndex];
+      const win = window.open();
+      const iframe = win.document.createElement('iframe');
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
+      iframe.src = url;
+      win.document.body.style.margin = "0";
+      win.document.body.style.height = "100vh";
+      win.document.body.appendChild(iframe);
     }
 
     function customizeTab() {
@@ -112,11 +127,11 @@
           break;
         case 'class-link':
           title.textContent = 'Class Link';
-          favicon.href = 'https://www.classlink.com/favicon.ico'; // Example icon URL
+          favicon.href = 'https://www.classlink.com/favicon.ico';
           break;
         case 'schoology':
           title.textContent = 'Schoology';
-          favicon.href = 'https://www.schoology.com/favicon.ico'; // Example icon URL
+          favicon.href = 'https://www.schoology.com/favicon.ico';
           break;
         default:
           title.textContent = 'Calculator - Google Search';
