@@ -5,30 +5,30 @@
   <link id="favicon" rel="icon" href="googleicon.png" type="image/png">
   <style>
     /* Hexagon pattern background */
-    <style>
-  body {
+     body {
+    margin: 0;
+    height: 100vh;
     background-color: #1a1a2e;
-    background-image: 
-      conic-gradient(
-        from 30deg,
-        #6a0dad 0deg 60deg,
-        transparent 60deg 120deg,
-        #6a0dad 120deg 180deg,
-        transparent 180deg 240deg,
-        #6a0dad 240deg 300deg,
-        transparent 300deg 360deg
-      );
-    background-size: 100px 86.6px; /* hexagon tile size */
-    background-position: 0 0;
-    animation: scrollHex 20s linear infinite;
+
+    /* Create a repeating triangle pattern using linear gradients */
+    background-image:
+      linear-gradient(60deg, transparent 75%, #6a0dad 75%),
+      linear-gradient(120deg, transparent 75%, #6a0dad 75%);
+    background-size: 60px 104px;
+    background-position: 0 0, 30px 52px;
+    background-repeat: repeat;
+
+    animation: moveTriangles 20s linear infinite;
   }
 
-  @keyframes scrollHex {
-    0%   { background-position: 0 0; }
-    100% { background-position: 100px 86.6px; }
+  @keyframes moveTriangles {
+    0% {
+      background-position: 0 0, 30px 52px;
+    }
+    100% {
+      background-position: 60px 104px, 90px 156px;
+    }
   }
-</style>
-
 
     h1, h2, h3 {
       margin-top: 0;
