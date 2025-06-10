@@ -135,30 +135,6 @@
       border-radius: 5px;
     }
 
-    /* VM container styling */
-    #vm-container {
-      margin-top: 20px;
-      font-family: sans-serif;
-    }
-    #virtualComputerDiv {
-      height: 720px;
-      width: 1280px;
-      border: 2px solid #000;
-      margin-top: 10px;
-      border-radius: 8px;
-    }
-    #gotoYouTubeBtn {
-      background-color: navy;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #gotoYouTubeBtn:hover {
-      background-color: #000066;
-    }
   </style>
 </head>
 <body>
@@ -167,17 +143,14 @@
     <button onclick="loadContent('customize')">Customize Page</button>
     <button onclick="loadContent('extensions')">Extensions Info</button>
     <button onclick="loadContent('proxy')">Proxy Utilities</button>
-    <button onclick="loadContent('vm')">VM</button> <!-- New VM button -->
   </div>
 
   <div id="info-content">
     <h1>Welcome!</h1>
-    <p>Use the buttons on the right to load Customize Page, Extensions Info, Proxy Utilities, or VM.</p>
+    <p>Use the buttons on the right to load Customize Page, Extensions Info, or Proxy Utilities.</p>
   </div>
 
-<script type="module">
-  import Hyperbeam from "https://unpkg.com/@hyperbeam/web@latest/dist/index.js";
-
+<script>
   // Update favicon helper
   function updateFavicon(url) {
     const favicon = document.getElementById('favicon');
@@ -210,11 +183,11 @@
         break;
       case 'class-link':
         updateTitle('Class Link');
-        updateFavicon('https://cdn2.downdetector.com/static/uploads/logo/classlink-log.png');
+        updateFavicon('https://www.classlink.com/favicon.ico');
         break;
       case 'schoology':
         updateTitle('Schoology');
-        updateFavicon('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTam7AEgmddJwB-YUBAdsfxBcIy8Nuk3seJwg&s');
+        updateFavicon('https://www.schoology.com/favicon.ico');
         break;
       default:
         updateTitle('ext-info');
@@ -324,7 +297,9 @@
 
   // Helper: Convert rgb(a) or hex color string to hex (#rrggbb)
   function rgbToHex(color) {
+    // If already hex, return it
     if (color[0] === '#') return color;
+    // Otherwise parse rgb format: rgb(12, 34, 56)
     const rgb = color.match(/\d+/g);
     if (!rgb || rgb.length < 3) return '#000000';
     return "#" + rgb.slice(0,3).map(x => {
@@ -427,36 +402,50 @@
         </select>
         <button style="margin-top:10px; width: 100%;" onclick="openSelectedProxy()">Open Proxy</button>
       </div>
-    `,
-
-    vm: `
-      <h1>Virtual Machine (VM)</h1>
-      <div id="vm-container">
-        <button id="gotoYouTubeBtn">Open Youtube.com</button>
-        <p>Current website: <span id="currentSite"></span></p>
-        <div id="virtualComputerDiv"></div>
-      </div>
     `
   };
 
   // Load content dynamically on button click
-  async function loadContent(section) {
+  function loadContent(section) {
     const contentDiv = document.getElementById('info-content');
     contentDiv.innerHTML = contentData[section] || '<p>No content found.</p>';
+  }
 
-    if (section === 'vm') {
-      try {
-        // Fetch the embed URL for Hyperbeam VM
-        const resp = await fetch("/computer");
-        if (!resp.ok) throw new Error('Failed to fetch VM embed URL');
-        const data = await resp.json();
+  // Customize background color
+  function changeBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+  }
 
-        const virtualComputerDiv = document.getElementById("virtualComputerDiv");
-        // Clear any previous instance (just in case)
-        virtualComputerDiv.innerHTML = "";
+  // Customize text color
+  function changeTextColor(color) {
+    document.body.style.color = color;
+  }
 
-        // Initialize Hyperbeam instance inside virtualComputerDiv
-        window.hb = await Hyperbeam(virtualComputerDiv, data.embed_url);
+  // Customize font family
+  function changeFont(font) {
+    document.body.style.fontFamily = font;
+  }
 
-        // Setup button to navigate VM tab to YouTube
-        const gotoYouTubeBtn
+  // Launch custom URL from proxy utilities
+  function launchCustomUrl() {
+    const input = document.getElementById('custom-proxy-url');
+    let url = input.value.trim();
+    if (!url) {
+      alert('Please enter a URL first.');
+      return;
+    }
+    // Validate url: if no protocol, prepend http://
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'http://' + url;
+    }
+    openProxyUrl(url);
+  }
+
+  // Initialize default page — load extensions info on load
+  window.onload = () => {
+    loadContent('extensions');
+  };
+</script>
+
+</body>
+</html>
