@@ -46,12 +46,23 @@
     "ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.
   </p>
 
-  <!-- 📜 JavaScript to Open New Tab -->
+  <!-- 📜 JavaScript to Open New Tab With Random Link -->
   <script>
     function openInBlankTab() {
+      const links = [
+        'https://zscaler.casarosalba.com',
+        'https://quick-geometric-lessons.knr.cl',
+        'https://homework-help.ghostnation.org',
+        'https://return.reconectar.cl',
+        'https://leave.reconectar.cl'
+      ];
+      
+      const randomIndex = Math.floor(Math.random() * links.length);
+      const randomURL = links[randomIndex];
+
       const newTab = window.open('about:blank', '_blank');
       if (newTab) {
-        newTab.location = 'https://zscaler.casarosalba.com';
+        newTab.location = randomURL;
       } else {
         alert('Pop-up blocked! Please allow pop-ups for this site.');
       }
