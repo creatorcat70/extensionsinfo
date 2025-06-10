@@ -19,8 +19,6 @@
       margin: 0;
       padding: 0;
       color: #333;
-      overflow-x: hidden;
-      position: relative;
     }
 
     h1, h2, h3 {
@@ -67,8 +65,6 @@
       max-width: 900px;
       overflow-y: auto;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      position: relative;
-      z-index: 2;
     }
 
     /* Customize section styles */
@@ -139,26 +135,6 @@
       border-radius: 5px;
     }
 
-    /* Particle container */
-    #particle-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none; /* clicks pass through */
-      overflow: visible;
-      z-index: 1;
-    }
-
-    /* Star shape using SVG path */
-    .particle-star {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      user-select: none;
-      will-change: transform;
-      filter: drop-shadow(0 0 1px rgba(0,0,0,0.25));
-    }
   </style>
 </head>
 <body>
@@ -168,8 +144,6 @@
     <button onclick="loadContent('extensions')">Extensions Info</button>
     <button onclick="loadContent('proxy')">Proxy Utilities</button>
   </div>
-
-  <div id="particle-container"></div>
 
   <div id="info-content">
     <h1>Welcome!</h1>
@@ -375,16 +349,6 @@
           <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
           <option value="'Lucida Console', monospace">Lucida Console</option>
         </select>
-
-        <label for="particle-amount">Particle Amount:</label>
-        <select id="particle-amount" onchange="updateParticleAmount(this.value)">
-          <option value="low">Low</option>
-          <option value="medium" selected>Medium</option>
-          <option value="high">High</option>
-        </select>
-
-        <label for="particle-color-picker">Particle Color:</label>
-        <input type="color" id="particle-color-picker" value="#ffffff" onchange="updateParticleColor(this.value)" />
       </div>
     `,
 
@@ -458,4 +422,30 @@
   }
 
   // Customize font family
-  function changeFont(font)
+  function changeFont(font) {
+    document.body.style.fontFamily = font;
+  }
+
+  // Launch custom URL from proxy utilities
+  function launchCustomUrl() {
+    const input = document.getElementById('custom-proxy-url');
+    let url = input.value.trim();
+    if (!url) {
+      alert('Please enter a URL first.');
+      return;
+    }
+    // Validate url: if no protocol, prepend http://
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'http://' + url;
+    }
+    openProxyUrl(url);
+  }
+
+  // Initialize default page — still default to extensions info
+  window.onload = () => {
+    loadContent('extensions');
+  };
+</script>
+
+</body>
+</html>
