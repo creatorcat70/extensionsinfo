@@ -308,9 +308,9 @@
     }).join('');
   }
 
-  // Content HTML blocks for each section
+  // Content HTML blocks for each section stored as template strings
   const contentData = {
-    customize: 
+    customize: `
       <h1>Customize Page</h1>
       <div class="customize-section">
 
@@ -350,9 +350,9 @@
           <option value="'Lucida Console', monospace">Lucida Console</option>
         </select>
       </div>
-    ,
+    `,
 
-    extensions: 
+    extensions: `
       <h1>Extension IDs and Their Uses</h1>
       <p style="color: purple;">Contact @thefakesydney on Discord if you know/have any unknown ones.</p>
 
@@ -381,9 +381,9 @@
           <p><a href="https://html.cafe/x5f8ca0af" target="_blank" rel="noopener noreferrer">https://html.cafe/x5f8ca0af</a> - allows you to print a ton of iframes on your computer, which freeze extensions.</p>
         </div>
       </div>
-    ,
+    `,
 
-    proxy: 
+    proxy: `
       <h1>Proxy Utilities</h1>
 
       <div class="proxy-launcher" style="margin-bottom:20px;">
@@ -402,7 +402,7 @@
         </select>
         <button style="margin-top:10px; width: 100%;" onclick="openSelectedProxy()">Open Proxy</button>
       </div>
-    
+    `
   };
 
   // Load content dynamically on button click
@@ -441,7 +441,7 @@
     openProxyUrl(url);
   }
 
-  // Initialize default page — still default to extensions info
+  // Initialize default page — load extensions info on load
   window.onload = () => {
     loadContent('extensions');
   };
