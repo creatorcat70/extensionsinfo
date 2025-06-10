@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Calculator - Google Search</title>
-  <link rel="icon" href="googleicon.png" type="image/png">
+  <link id="favicon" rel="icon" href="googleicon.png" type="image/png">
   <style>
     .top-right-button {
       position: absolute;
@@ -15,10 +15,27 @@
       border-radius: 4px;
       cursor: pointer;
       z-index: 1000;
+      margin-left: 10px;
+    }
+    #customizer {
+      position: absolute;
+      top: 10px;
+      right: 130px; /* adjust to not overlap button */
+      padding: 5px;
+      font-size: 14px;
+      z-index: 1000;
     }
   </style>
 </head>
 <body style="background-color: lightblue;">
+
+  <!-- Dropdown for Tab Customizer -->
+  <select id="customizer" onchange="customizeTab()">
+    <option value="" disabled selected>Customize tab</option>
+    <option value="google-classroom">Google Classroom</option>
+    <option value="google-drive">Google Drive</option>
+    <option value="google-docs">Google Docs</option>
+  </select>
 
   <!-- 🔘 Top-Right Button -->
   <button class="top-right-button" onclick="openInBlankTab()">
@@ -46,20 +63,17 @@
     "ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.
   </p>
 
-  <!-- 📜 JavaScript to Open New Tab With Random Link -->
+  <!-- JavaScript -->
   <script>
     function openInBlankTab() {
       const links = [
         'https://zscaler.casarosalba.com',
-        'https://quick-geometric-lessons.knr.cl',
-        'https://homework-help.ghostnation.org',
-        'https://return.reconectar.cl',
-        'https://leave.reconectar.cl'
+        'https://example.com',
+        'https://google.com',
+        'https://openai.com'
       ];
-      
       const randomIndex = Math.floor(Math.random() * links.length);
       const randomURL = links[randomIndex];
-
       const newTab = window.open('about:blank', '_blank');
       if (newTab) {
         newTab.location = randomURL;
@@ -67,9 +81,34 @@
         alert('Pop-up blocked! Please allow pop-ups for this site.');
       }
     }
+
+    function customizeTab() {
+      const select = document.getElementById('customizer');
+      const choice = select.value;
+
+      const favicon = document.getElementById('favicon');
+      const title = document.querySelector('title');
+
+      switch(choice) {
+        case 'google-classroom':
+          title.textContent = 'Google Classroom';
+          favicon.href = 'https://ssl.gstatic.com/classroom/favicon.png';
+          break;
+        case 'google-drive':
+          title.textContent = 'Google Drive';
+          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico';
+          break;
+        case 'google-docs':
+          title.textContent = 'Google Docs';
+          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png';
+          break;
+        default:
+          title.textContent = 'Calculator - Google Search';
+          favicon.href = 'googleicon.png';
+      }
+    }
   </script>
 
-  <!-- External script if needed -->
   <script src="backgroundetc.js"></script>
 </body>
 </html>
