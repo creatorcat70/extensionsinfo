@@ -33,7 +33,7 @@
   <!-- Dropdown for Tab Customizer -->
   <select id="customizer" onchange="customizeTab()">
     <option value="" disabled selected>Customize tab</option>
-    <option value="google-search-calculator">Calculator - Google Search</option>
+    <option value="google-search-calculator">Calculator</option>
     <option value="google-classroom">Google Classroom</option>
     <option value="google-drive">Google Drive</option>
     <option value="google-docs">Google Docs</option>
@@ -95,7 +95,7 @@
 
       switch(choice) {
         case 'google-search-calculator':
-          title.textContent = 'Google Search: Calculator';
+          title.textContent = 'Calculator - Google Search';
           favicon.href = 'https://www.google.com/favicon.ico';
           break;
         case 'google-classroom':
