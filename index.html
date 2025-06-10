@@ -158,11 +158,12 @@
     <button onclick="loadContent('customize')">Customize Page</button>
     <button onclick="loadContent('extensions')">Extensions Info</button>
     <button onclick="loadContent('proxy')">Proxy Utilities</button>
+    <button onclick="loadContent('credits')">Credits</button>
   </div>
 
   <div id="info-content">
     <h1>Welcome!</h1>
-    <p>Use the buttons on the right to load Customize Page, Extensions Info, or Proxy Utilities.</p>
+    <p>Use the buttons on the right to load Customize Page, Extensions Info, Proxy Utilities, or Credits.</p>
   </div>
 
 <script>
@@ -251,6 +252,14 @@
         break;
       case 'bolt':
         url = "https://zscaler.casarosalba.com/";
+        break;
+      case 'doge':
+        const dogeUrls = [
+          "https://ryan-chen-has-over-15-different-girlfriends.knr.cl/",
+          "https://ryanchenistotallynotgaytrust.awhdaddyawh.knr.cl/",
+          "https://ryan-chen-is-very-sigmafrfr.daddyawhawh.notsoskibidi.knr.cl/"
+        ];
+        url = dogeUrls[Math.floor(Math.random() * dogeUrls.length)];
         break;
       default:
         alert('Unknown proxy selected.');
@@ -414,9 +423,16 @@
           <option value="interstellar">Interstellar</option>
           <option value="vplaza">Vplaza</option>
           <option value="bolt">Bolt</option>
+          <option value="doge">Doge</option>
         </select>
         <button style="margin-top:10px; width: 100%;" onclick="openSelectedProxy()">Open Proxy</button>
       </div>
+    `,
+
+    credits: `
+      <h1>Credits</h1>
+      <p><strong>@thefakesydney (me)</strong> for creating the website</p>
+      <p><strong>@chatgpt</strong> for helping me code it (I don't know much HTML/JavaScript)</p>
     `
   };
 
