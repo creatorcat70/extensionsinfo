@@ -245,11 +245,84 @@
     openProxyUrl(url);
   }
 
+  // Default themes presets
+  const themes = {
+    "Navy": {
+      bgColor: "#001f3f",
+      textColor: "#FFFFFF",
+      fontFamily: "Arial, sans-serif"
+    },
+    "Wave": {
+      bgColor: "#89CFF0",
+      textColor: "#001F3F",
+      fontFamily: "'Courier New', monospace"
+    },
+    "Dark blue": {
+      bgColor: "#0B3D91",
+      textColor: "#E6E6FA",
+      fontFamily: "'Times New Roman', serif"
+    },
+    "Monument": {
+      bgColor: "#565051",
+      textColor: "#F5F5F5",
+      fontFamily: "'Lucida Console', monospace"
+    },
+    "Magma": {
+      bgColor: "#FF4500",
+      textColor: "#1C1C1C",
+      fontFamily: "'Comic Sans MS', cursive"
+    }
+  };
+
+  // Apply selected theme colors and fonts
+  function applyTheme(themeName) {
+    if (!themeName || !themes[themeName]) return;
+    const theme = themes[themeName];
+    // Update background and text colors and font
+    document.body.style.backgroundColor = theme.bgColor;
+    document.body.style.color = theme.textColor;
+    document.body.style.fontFamily = theme.fontFamily;
+
+    // Also update the color pickers and font selector if they exist, so UI stays in sync
+    const bgPicker = document.getElementById('bg-color-picker');
+    const textPicker = document.getElementById('text-color-picker');
+    const fontSelect = document.getElementById('font-select');
+    const themeSelect = document.getElementById('theme-select');
+
+    if (bgPicker) bgPicker.value = rgbToHex(theme.bgColor);
+    if (textPicker) textPicker.value = rgbToHex(theme.textColor);
+    if (fontSelect) fontSelect.value = theme.fontFamily;
+    if (themeSelect) themeSelect.value = themeName;
+  }
+
+  // Helper: Convert rgb(a) or hex color string to hex (#rrggbb)
+  function rgbToHex(color) {
+    // If already hex, return it
+    if (color[0] === '#') return color;
+    // Otherwise parse rgb format: rgb(12, 34, 56)
+    const rgb = color.match(/\d+/g);
+    if (!rgb || rgb.length < 3) return '#000000';
+    return "#" + rgb.slice(0,3).map(x => {
+      const hex = parseInt(x).toString(16);
+      return hex.length === 1 ? "0" + hex : hex;
+    }).join('');
+  }
+
   // Content HTML blocks for each section
   const contentData = {
     customize: `
       <h1>Customize Page</h1>
       <div class="customize-section">
+
+        <label for="theme-select">Select Default Theme:</label>
+        <select id="theme-select" onchange="applyTheme(this.value)">
+          <option value="" disabled selected>Choose a theme</option>
+          <option value="Navy">Navy</option>
+          <option value="Wave">Wave</option>
+          <option value="Dark blue">Dark blue</option>
+          <option value="Monument">Monument</option>
+          <option value="Magma">Magma</option>
+        </select>
 
         <label for="customize-tab-select">Select tab to customize:</label>
         <select id="customize-tab-select" onchange="customizeTab(this.value)">
@@ -304,7 +377,7 @@
       <div class="extension-item">
         <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" alt="exthang3r Icon">
         <div>
-          <h3 style="color: green;">Exthang3r by Blobby Boi (Patched 134+) </h3>
+          <h3 style="color: green;">exthang3r by Blobby Boi</h3>
           <p><a href="https://html.cafe/x5f8ca0af" target="_blank" rel="noopener noreferrer">https://html.cafe/x5f8ca0af</a> - allows you to print a ton of iframes on your computer, which freeze extensions.</p>
         </div>
       </div>
@@ -368,7 +441,7 @@
     openProxyUrl(url);
   }
 
-  // Initialize default page — changed to load extensions by default
+  // Initialize default page — still default to extensions info
   window.onload = () => {
     loadContent('extensions');
   };
