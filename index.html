@@ -15,195 +15,364 @@
       background-size: 100px 52px;
       background-position: 0 0, 50px 0, 0 0, 50px 0;
       background-repeat: repeat;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
     }
 
-    .top-right-button {
-      position: absolute;
+    h1, h2, h3 {
+      margin-top: 0;
+    }
+
+    /* Top right controls container */
+    .control-panel {
+      position: fixed;
       top: 10px;
       right: 10px;
-      padding: 10px 15px;
-      background-color: #007BFF;
+      width: 220px;
+      background: rgba(255,255,255,0.95);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      font-size: 14px;
+    }
+
+    .control-panel button {
+      background-color: navy;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      z-index: 1000;
-      margin-left: 10px;
+      padding: 8px 12px;
+      margin: 5px 0;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .control-panel button:hover {
+      background-color: #000066;
     }
 
-    #proxy-select {
-      position: absolute;
-      top: 10px;
-      right: 150px;
-      padding: 7px 10px;
-      font-size: 14px;
+    /* Info content area */
+    #info-content {
+      margin: 50px 20px 20px 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      min-height: 80vh;
+      max-width: 900px;
+      overflow-y: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    /* Customize section styles */
+    .customize-section label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .customize-section select, 
+    .customize-section input[type="color"],
+    .customize-section input[type="text"] {
+      width: 100%;
+      padding: 6px;
+      margin-top: 4px;
+      box-sizing: border-box;
       border-radius: 4px;
       border: 1px solid #ccc;
-      z-index: 1000;
-      min-width: 160px;
+      font-size: 14px;
     }
 
-    #customizer {
-      position: absolute;
-      top: 10px;
-      right: 320px;
-      padding: 5px;
-      font-size: 14px;
-      z-index: 1000;
-      min-width: 180px;
+    /* Extension icons styling */
+    .extension-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
     }
+    .extension-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* Proxy utilities input & button */
+    .proxy-launcher input[type="text"] {
+      width: calc(100% - 90px);
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      margin-right: 5px;
+      box-sizing: border-box;
+    }
+    .proxy-launcher button {
+      padding: 7px 12px;
+      background-color: navy;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .proxy-launcher button:hover {
+      background-color: #000066;
+    }
+
+    /* Scrollbar for info-content */
+    #info-content::-webkit-scrollbar {
+      width: 10px;
+    }
+    #info-content::-webkit-scrollbar-thumb {
+      background-color: #aaa;
+      border-radius: 5px;
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Dropdown for Tab Customizer -->
-  <select id="customizer" onchange="customizeTab()">
-    <option value="" disabled>Customize tab</option>
-    <option value="extensions-info" selected>Extensions Info</option>
-    <option value="google-search-calculator">Calculator</option>
-    <option value="google-classroom">Google Classroom</option>
-    <option value="google-drive">Google Drive</option>
-    <option value="google-docs">Google Docs</option>
-    <option value="class-link">ClassLink</option>
-    <option value="schoology">Schoology</option>
-  </select>
+  <div class="control-panel">
+    <button onclick="loadContent('customize')">Customize Page</button>
+    <button onclick="loadContent('extensions')">Extensions Info</button>
+    <button onclick="loadContent('proxy')">Proxy Utilities</button>
+  </div>
 
-  <!-- Proxy selector dropdown -->
-  <select id="proxy-select">
-    <option value="" disabled selected>Select Proxy</option>
-    <option value="interstellar">Interstellar</option>
-    <option value="vplaza">Vplaza</option>
-    <option value="bolt">Bolt</option>
-  </select>
+  <div id="info-content">
+    <h1>Welcome!</h1>
+    <p>Use the buttons on the right to load Customize Page, Extensions Info, or Proxy Utilities.</p>
+  </div>
 
-  <!-- Open Proxy button -->
-  <button class="top-right-button" onclick="openProxy()">
-    Open Proxy
-  </button>
+<script>
+  // Update favicon helper
+  function updateFavicon(url) {
+    const favicon = document.getElementById('favicon');
+    favicon.href = url;
+  }
 
-  <div id="content">
-    <!-- Extensions Info Section -->
-    <section id="extensions-info">
+  // Update title helper
+  function updateTitle(text) {
+    document.title = text;
+  }
+
+  // Customize tab logic for the customize section
+  function customizeTab(choice) {
+    switch(choice) {
+      case 'google-search-calculator':
+        updateTitle('Calculator - Google Search');
+        updateFavicon('https://www.google.com/favicon.ico');
+        break;
+      case 'google-classroom':
+        updateTitle('Google Classroom');
+        updateFavicon('https://ssl.gstatic.com/classroom/favicon.png');
+        break;
+      case 'google-drive':
+        updateTitle('Google Drive');
+        updateFavicon('https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico');
+        break;
+      case 'google-docs':
+        updateTitle('Google Docs');
+        updateFavicon('https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png');
+        break;
+      case 'class-link':
+        updateTitle('Class Link');
+        updateFavicon('https://www.classlink.com/favicon.ico');
+        break;
+      case 'schoology':
+        updateTitle('Schoology');
+        updateFavicon('https://www.schoology.com/favicon.ico');
+        break;
+      default:
+        updateTitle('ext-info');
+        updateFavicon('googleicon.png');
+    }
+  }
+
+  // Proxy open function (reused)
+  function openProxyUrl(url) {
+    if (!url) {
+      alert("Please enter a valid URL.");
+      return;
+    }
+    const win = window.open();
+    const iframe = win.document.createElement('iframe');
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "none";
+    iframe.src = url;
+    win.document.body.style.margin = "0";
+    win.document.body.style.height = "100vh";
+    win.document.body.appendChild(iframe);
+  }
+
+  // Proxy selector open
+  function openSelectedProxy() {
+    const select = document.getElementById('proxy-select');
+    const choice = select.value;
+    let url;
+
+    if (!choice) {
+      alert('Please select a proxy first.');
+      return;
+    }
+
+    switch(choice) {
+      case 'interstellar':
+        url = "https://quick-geometric-lessons.knr.cl";
+        break;
+      case 'vplaza':
+        const vplazaUrls = [
+          "https://leave.reconectar.cl",
+          "https://return.reconectar.cl"
+        ];
+        url = vplazaUrls[Math.floor(Math.random() * vplazaUrls.length)];
+        break;
+      case 'bolt':
+        url = "https://zscaler.casarosalba.com/";
+        break;
+      default:
+        alert('Unknown proxy selected.');
+        return;
+    }
+
+    openProxyUrl(url);
+  }
+
+  // Content HTML blocks for each section
+  const contentData = {
+    customize: `
+      <h1>Customize Page</h1>
+      <div class="customize-section">
+
+        <label for="customize-tab-select">Select tab to customize:</label>
+        <select id="customize-tab-select" onchange="customizeTab(this.value)">
+          <option value="" disabled selected>Choose an option</option>
+          <option value="google-search-calculator">Calculator (Google Search)</option>
+          <option value="google-classroom">Google Classroom</option>
+          <option value="google-drive">Google Drive</option>
+          <option value="google-docs">Google Docs</option>
+          <option value="class-link">Class Link</option>
+          <option value="schoology">Schoology</option>
+        </select>
+
+        <label for="bg-color-picker">Change background color:</label>
+        <input type="color" id="bg-color-picker" value="#add8e6" onchange="changeBackgroundColor(this.value)" />
+
+        <label for="text-color-picker">Change text color:</label>
+        <input type="color" id="text-color-picker" value="#333333" onchange="changeTextColor(this.value)" />
+
+        <label for="font-select">Select font family:</label>
+        <select id="font-select" onchange="changeFont(this.value)">
+          <option value="Arial, sans-serif" selected>Arial</option>
+          <option value="'Courier New', monospace">Courier New</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+          <option value="'Lucida Console', monospace">Lucida Console</option>
+        </select>
+      </div>
+    `,
+
+    extensions: `
       <h1>Extension IDs and Their Uses</h1>
       <p style="color: purple;">Contact @thefakesydney on Discord if you know/have any unknown ones.</p>
 
-      <h3 style="color: brown;">
-        <img src="https://lh3.googleusercontent.com/OqjMJCR1HdLJzFst866W8Fn4F96l8E6z8RoGkdPkj5wOKLQKL7U8Fda4aeQxLjIRjWXMW2hNOQ=s640-w640-h400" 
-             alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-        Gopher Buddy
-      </h3>
-      <p>
-        ipfchkohmimofadciefnbbdagkmgbipa — Captures your IP and monitors your session duration. Also forces you to do ChromeOS updates.
-      </p>
+      <div class="extension-item">
+        <img src="https://lh3.googleusercontent.com/OqjMJCR1HdLJzFst866W8Fn4F96l8E6z8RoGkdPkj5wOKLQKL7U8Fda4aeQxLjIRjWXMW2hNOQ=s640-w640-h400" alt="Gopher Buddy Icon">
+        <div>
+          <h3 style="color: brown;">Gopher Buddy</h3>
+          <p>"ipfchkohmimofadciefnbbdagkmgbipa" — Captures your IP and monitors your session duration. Also forces you to do ChromeOS updates.</p>
+        </div>
+      </div>
 
-      <h3 style="color: greenyellow;">
-        <img src="https://lh3.googleusercontent.com/PwQcarJTznbbXQyGjcOTLtAPKKGSiksluEjl-dJSJAEXlXqEJ15ogRNbBaMDCf01BDnFALLLgl5TcpQh1l_4skxL=s275-w275-h175" 
-             alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-        Learnplatform For Students
-      </h3>
-      <p>
-        ncbofnhmmfffmcdmbjfaigepkgmjnlne — Logs your browsing history as well as tracking which websites you visit most frequently.
-      </p>
+      <div class="extension-item">
+        <img src="https://lh3.googleusercontent.com/PwQcarJTznbbXQyGjcOTLtAPKKGSiksluEjl-dJSJAEXlXqEJ15ogRNbBaMDCf01BDnFALLLgl5TcpQh1l_4skxL=s275-w275-h175" alt="Learnplatform For Students Icon">
+        <div>
+          <h3 style="color: greenyellow;">Learnplatform For Students</h3>
+          <p>"ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.</p>
+        </div>
+      </div>
 
-      <h1>Circumventing</h1>
-      <h3 style="color: green;">
-        <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" 
-             alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-        exthang3r by Blobby Boi
-      </h3>
-      <p>
-        <a href="https://html.cafe/x5f8ca0af" target="_blank" rel="noopener noreferrer">
-          https://html.cafe/x5f8ca0af
-        </a> - allows you to print a ton of iframes on your computer, which freeze extensions.
-      </p>
-    </section>
-  </div>
+      <h2>Circumventing</h2>
 
-  <script>
-    function openProxy() {
-      const select = document.getElementById('proxy-select');
-      const choice = select.value;
-      let url;
+      <div class="extension-item">
+        <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" alt="exthang3r Icon">
+        <div>
+          <h3 style="color: green;">exthang3r by Blobby Boi</h3>
+          <p><a href="https://html.cafe/x5f8ca0af" target="_blank" rel="noopener noreferrer">https://html.cafe/x5f8ca0af</a> - allows you to print a ton of iframes on your computer, which freeze extensions.</p>
+        </div>
+      </div>
+    `,
 
-      if (!choice) {
-        alert('Please select a proxy first.');
-        return;
-      }
+    proxy: `
+      <h1>Proxy Utilities</h1>
 
-      switch(choice) {
-        case 'interstellar':
-          url = "https://quick-geometric-lessons.knr.cl";
-          break;
-        case 'vplaza':
-          // randomly pick one of two URLs
-          const vplazaUrls = [
-            "https://leave.reconectar.cl",
-            "https://return.reconectar.cl"
-          ];
-          url = vplazaUrls[Math.floor(Math.random() * vplazaUrls.length)];
-          break;
-        case 'bolt':
-          url = "https://zscaler.casarosalba.com/";
-          break;
-        default:
-          alert('Unknown proxy selected.');
-          return;
-      }
+      <div class="proxy-launcher" style="margin-bottom:20px;">
+        <label for="custom-proxy-url">Open a custom URL in a blank launcher:</label><br/>
+        <input type="text" id="custom-proxy-url" placeholder="Enter full URL here" />
+        <button onclick="launchCustomUrl()">Launch</button>
+      </div>
 
-      const win = window.open();
-      const iframe = win.document.createElement('iframe');
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      iframe.src = url;
-      win.document.body.style.margin = "0";
-      win.document.body.style.height = "100vh";
-      win.document.body.appendChild(iframe);
+      <div>
+        <label for="proxy-select">Select Proxy:</label><br/>
+        <select id="proxy-select" style="width: 100%; margin-top: 5px;">
+          <option value="" disabled selected>Select Proxy</option>
+          <option value="interstellar">Interstellar</option>
+          <option value="vplaza">Vplaza</option>
+          <option value="bolt">Bolt</option>
+        </select>
+        <button style="margin-top:10px; width: 100%;" onclick="openSelectedProxy()">Open Proxy</button>
+      </div>
+    `
+  };
+
+  // Load content dynamically on button click
+  function loadContent(section) {
+    const contentDiv = document.getElementById('info-content');
+    contentDiv.innerHTML = contentData[section] || '<p>No content found.</p>';
+  }
+
+  // Customize background color
+  function changeBackgroundColor(color) {
+    document.body.style.backgroundColor = color;
+  }
+
+  // Customize text color
+  function changeTextColor(color) {
+    document.body.style.color = color;
+  }
+
+  // Customize font family
+  function changeFont(font) {
+    document.body.style.fontFamily = font;
+  }
+
+  // Launch custom URL from proxy utilities
+  function launchCustomUrl() {
+    const input = document.getElementById('custom-proxy-url');
+    let url = input.value.trim();
+    if (!url) {
+      alert('Please enter a URL first.');
+      return;
     }
-
-    function customizeTab() {
-      const select = document.getElementById('customizer');
-      const choice = select.value;
-
-      const favicon = document.getElementById('favicon');
-      const title = document.querySelector('title');
-
-      switch(choice) {
-        case 'google-search-calculator':
-          title.textContent = 'Calculator - Google Search';
-          favicon.href = 'https://www.google.com/favicon.ico';
-          break;
-        case 'google-classroom':
-          title.textContent = 'Google Classroom';
-          favicon.href = 'https://ssl.gstatic.com/classroom/favicon.png';
-          break;
-        case 'google-drive':
-          title.textContent = 'Google Drive';
-          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico';
-          break;
-        case 'google-docs':
-          title.textContent = 'Google Docs';
-          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png';
-          break;
-        case 'class-link':
-          title.textContent = 'Class Link';
-          favicon.href = 'https://www.classlink.com/favicon.ico';
-          break;
-        case 'schoology':
-          title.textContent = 'Schoology';
-          favicon.href = 'https://www.schoology.com/favicon.ico';
-          break;
-        case 'extensions-info':
-          title.textContent = 'Extension IDs and Their Uses';
-          favicon.href = 'googleicon.png';
-          break;
-        default:
-          title.textContent = 'Calculator - Google Search';
-          favicon.href = 'googleicon.png';
-      }
+    // Validate url: if no protocol, prepend http://
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'http://' + url;
     }
-  </script>
+    openProxyUrl(url);
+  }
 
-  <script src="backgroundetc.js"></script>
+  // Initialize default page
+  window.onload = () => {
+    loadContent('customize');
+  };
+</script>
+
 </body>
 </html>
