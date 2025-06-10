@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ext-info</title>
-  <link id="favicon" rel="icon" href="googleicon.png" type="image/png">
+  <title>Particles + Themes</title>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
   <style>
-    /* Hexagon pattern background */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
     body {
-      background-color: #add8e6; /* lightblue */
+      background-color: #add8e6;
       background-image:
         radial-gradient(circle at 30px 26px, #ffffff40 10px, transparent 11px),
         radial-gradient(circle at 70px 26px, #ffffff40 10px, transparent 11px),
@@ -15,183 +20,139 @@
       background-size: 100px 52px;
       background-position: 0 0, 50px 0, 0 0, 50px 0;
       background-repeat: repeat;
+      transition: background 0.5s;
     }
 
-    .top-right-button {
-      position: absolute;
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .control-panel {
+      position: fixed;
       top: 10px;
-      right: 10px;
-      padding: 10px 15px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      left: 10px;
       z-index: 1000;
-      margin-left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      font-family: sans-serif;
     }
 
-    #proxy-select {
-      position: absolute;
-      top: 10px;
-      right: 150px;
-      padding: 7px 10px;
-      font-size: 14px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      z-index: 1000;
-      min-width: 160px;
-    }
-
-    #customizer {
-      position: absolute;
-      top: 10px;
-      right: 320px;
+    select {
+      margin: 5px 0;
       padding: 5px;
       font-size: 14px;
-      z-index: 1000;
-      min-width: 180px;
     }
   </style>
 </head>
 <body>
+  <!-- Particles container -->
+  <div id="tsparticles"></div>
 
-  <!-- Dropdown for Tab Customizer -->
-  <select id="customizer" onchange="customizeTab()">
-    <option value="" disabled selected>Customize tab</option>
-    <option value="google-search-calculator">Calculator</option>
-    <option value="google-classroom">Google Classroom</option>
-    <option value="google-drive">Google Drive</option>
-    <option value="google-docs">Google Docs</option>
-    <option value="class-link">ClassLink</option>
-    <option value="schoology">Schoology</option>
-  </select>
-
-  <!-- Proxy selector dropdown -->
-  <select id="proxy-select">
-    <option value="" disabled selected>Select Proxy</option>
-    <option value="interstellar">Interstellar</option>
-    <option value="vplaza">Vplaza</option>
-    <option value="bolt">Bolt</option>
-  </select>
-
-  <!-- Open Proxy button -->
-  <button class="top-right-button" onclick="openProxy()">
-    Open Proxy
-  </button>
-
-  <h1>Extension IDs and Their Uses</h1>
-  <p style="color: purple;">Contact @thefakesydney on Discord if you know/have any unknown ones.</p>
-
-  <h3 style="color: brown;">
-    <img src="https://lh3.googleusercontent.com/OqjMJCR1HdLJzFst866W8Fn4F96l8E6z8RoGkdPkj5wOKLQKL7U8Fda4aeQxLjIRjWXMW2hNOQ=s640-w640-h400" 
-         alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-    Gopher Buddy
-  </h3>
-  <p>
-    "ipfchkohmimofadciefnbbdagkmgbipa" — Captures your IP and monitors your session duration. Also forces you to do ChromeOS updates.
-  </p>
-
-  <h3 style="color: greenyellow;">
-    <img src="https://lh3.googleusercontent.com/PwQcarJTznbbXQyGjcOTLtAPKKGSiksluEjl-dJSJAEXlXqEJ15ogRNbBaMDCf01BDnFALLLgl5TcpQh1l_4skxL=s275-w275-h175" 
-         alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-    Learnplatform For Students
-  </h3>
-  <p>
-    "ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.
-  </p>
-  <h1> Circumventing </h1>
- <h3 style="color: green;">
-    <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" 
-         alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
-    exthang3r by Blobby Boi
-  </h3>
-  <p>
-    "https://html.cafe/x5f8ca0af" - allows you to print a ton of iframes on your computer, which freeze extensions.
-  </p>
-
+  <!-- Controls -->
+  <div class="control-panel">
+    <label>Particle Amount:</label>
+    <select id="particle-count" onchange="updateParticles()">
+      <option value="30">Low</option>
+      <option value="80" selected>Medium</option>
+      <option value="150">High</option>
+    </select>
+    <br>
+    <label>Theme:</label>
+    <select id="theme-selector" onchange="changeTheme()">
+      <option value="default" selected>Default</option>
+      <option value="magma">Magma</option>
+      <option value="wave">Wave</option>
+      <option value="ocean">Ocean Blue</option>
+      <option value="lightblue">Light Blue</option>
+    </select>
+  </div>
 
   <script>
-    function openProxy() {
-      const select = document.getElementById('proxy-select');
-      const choice = select.value;
-      let url;
+    let currentParticles;
 
-      if (!choice) {
-        alert('Please select a proxy first.');
-        return;
-      }
-
-      switch(choice) {
-        case 'interstellar':
-          url = "https://quick-geometric-lessons.knr.cl";
-          break;
-        case 'vplaza':
-          // randomly pick one of two URLs
-          const vplazaUrls = [
-            "https://leave.reconectar.cl",
-            "https://return.reconectar.cl"
-          ];
-          url = vplazaUrls[Math.floor(Math.random() * vplazaUrls.length)];
-          break;
-        case 'bolt':
-          url = "https://zscaler.casarosalba.com/";
-          break;
-        default:
-          alert('Unknown proxy selected.');
-          return;
-      }
-
-      const win = window.open();
-      const iframe = win.document.createElement('iframe');
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      iframe.src = url;
-      win.document.body.style.margin = "0";
-      win.document.body.style.height = "100vh";
-      win.document.body.appendChild(iframe);
+    function loadParticles(amount = 80) {
+      tsParticles.load("tsparticles", {
+        fullScreen: { enable: false },
+        particles: {
+          number: {
+            value: amount,
+            density: {
+              enable: true,
+              area: 800
+            }
+          },
+          color: { value: "#ffffff" },
+          shape: { type: "star" },
+          size: {
+            value: 2,
+            random: true
+          },
+          opacity: {
+            value: 0.8
+          },
+          move: {
+            enable: true,
+            speed: 0.6
+          }
+        }
+      }).then(container => {
+        currentParticles = container;
+      });
     }
 
-    function customizeTab() {
-      const select = document.getElementById('customizer');
-      const choice = select.value;
-
-      const favicon = document.getElementById('favicon');
-      const title = document.querySelector('title');
-
-      switch(choice) {
-        case 'google-search-calculator':
-          title.textContent = 'Calculator - Google Search';
-          favicon.href = 'https://www.google.com/favicon.ico';
-          break;
-        case 'google-classroom':
-          title.textContent = 'Google Classroom';
-          favicon.href = 'https://ssl.gstatic.com/classroom/favicon.png';
-          break;
-        case 'google-drive':
-          title.textContent = 'Google Drive';
-          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico';
-          break;
-        case 'google-docs':
-          title.textContent = 'Google Docs';
-          favicon.href = 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png';
-          break;
-        case 'class-link':
-          title.textContent = 'Class Link';
-          favicon.href = 'https://www.classlink.com/favicon.ico';
-          break;
-        case 'schoology':
-          title.textContent = 'Schoology';
-          favicon.href = 'https://www.schoology.com/favicon.ico';
-          break;
-        default:
-          title.textContent = 'Calculator - Google Search';
-          favicon.href = 'googleicon.png';
+    function updateParticles() {
+      const amount = parseInt(document.getElementById("particle-count").value);
+      if (currentParticles) {
+        currentParticles.destroy().then(() => {
+          loadParticles(amount);
+        });
+      } else {
+        loadParticles(amount);
       }
     }
+
+    function changeTheme() {
+      const theme = document.getElementById("theme-selector").value;
+      const body = document.body;
+
+      switch (theme) {
+        case "default":
+          body.style.backgroundColor = "#add8e6";
+          body.style.backgroundImage =
+            `radial-gradient(circle at 30px 26px, #ffffff40 10px, transparent 11px),
+             radial-gradient(circle at 70px 26px, #ffffff40 10px, transparent 11px),
+             linear-gradient(60deg, #ffffff30 5px, transparent 6px),
+             linear-gradient(-60deg, #ffffff30 5px, transparent 6px)`;
+          break;
+        case "magma":
+          body.style.backgroundColor = "#ff4500";
+          body.style.backgroundImage = "linear-gradient(45deg, #ff6347 25%, #8b0000 100%)";
+          break;
+        case "wave":
+          body.style.backgroundColor = "#8a2be2";
+          body.style.backgroundImage = "linear-gradient(135deg, #ff00ff, #8000ff)";
+          break;
+        case "ocean":
+          body.style.backgroundColor = "#001f3f";
+          body.style.backgroundImage = "linear-gradient(135deg, #0074D9, #001f3f)";
+          break;
+        case "lightblue":
+          body.style.backgroundColor = "#b3e5fc";
+          body.style.backgroundImage = "none";
+          break;
+      }
+    }
+
+    // Load default particles on page load
+    window.onload = () => {
+      loadParticles(80);
+    };
   </script>
-
-  <script src="backgroundetc.js"></script>
 </body>
 </html>
