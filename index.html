@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Particles + Themes</title>
+  <title>Particles + Themes + Info Panels</title>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background-color: #add8e6;
+      transition: background 0.5s;
     }
 
     body {
-      background-color: #add8e6;
       background-image:
         radial-gradient(circle at 30px 26px, #ffffff40 10px, transparent 11px),
         radial-gradient(circle at 70px 26px, #ffffff40 10px, transparent 11px),
@@ -20,7 +23,6 @@
       background-size: 100px 52px;
       background-position: 0 0, 50px 0, 0 0, 50px 0;
       background-repeat: repeat;
-      transition: background 0.5s;
     }
 
     #tsparticles {
@@ -37,33 +39,91 @@
       top: 10px;
       left: 10px;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       padding: 10px;
       border-radius: 10px;
-      font-family: sans-serif;
+      color: #000;
+      width: 230px;
     }
 
     select {
       margin: 5px 0;
       padding: 5px;
       font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .nav-buttons {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-buttons button {
+      background-color: navy;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #000080cc;
+    }
+
+    /* Content area for loaded info */
+    #info-content {
+      position: fixed;
+      top: 10px;
+      left: 260px;
+      right: 10px;
+      bottom: 10px;
+      overflow-y: auto;
+      background: rgba(0, 0, 50, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 0 10px rgba(0,0,50,0.8);
+      font-size: 16px;
+    }
+
+    #info-content h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 6px;
+    }
+
+    /* Scrollbar styling for content */
+    #info-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    #info-content::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
+
   <!-- Particles container -->
   <div id="tsparticles"></div>
 
-  <!-- Controls -->
+  <!-- Controls panel -->
   <div class="control-panel">
-    <label>Particle Amount:</label>
+    <label for="particle-count">Particle Amount:</label>
     <select id="particle-count" onchange="updateParticles()">
       <option value="30">Low</option>
       <option value="80" selected>Medium</option>
       <option value="150">High</option>
     </select>
-    <br>
-    <label>Theme:</label>
+
+    <label for="theme-selector">Theme:</label>
     <select id="theme-selector" onchange="changeTheme()">
       <option value="default" selected>Default</option>
       <option value="magma">Magma</option>
@@ -71,6 +131,18 @@
       <option value="ocean">Ocean Blue</option>
       <option value="lightblue">Light Blue</option>
     </select>
+
+    <div class="nav-buttons">
+      <button onclick="loadContent('customize')">Customize Page</button>
+      <button onclick="loadContent('extensions')">Extensions Info</button>
+      <button onclick="loadContent('proxy')">Proxy Utilities</button>
+    </div>
+  </div>
+
+  <!-- Info content area -->
+  <div id="info-content">
+    <h2>Welcome!</h2>
+    <p>Use the buttons to the left to load information about Customize Page, Extensions Info, or Proxy Utilities.</p>
   </div>
 
   <script>
@@ -82,10 +154,7 @@
         particles: {
           number: {
             value: amount,
-            density: {
-              enable: true,
-              area: 800
-            }
+            density: { enable: true, area: 800 }
           },
           color: { value: "#ffffff" },
           shape: { type: "star" },
@@ -93,9 +162,7 @@
             value: 2,
             random: true
           },
-          opacity: {
-            value: 0.8
-          },
+          opacity: { value: 0.8 },
           move: {
             enable: true,
             speed: 0.6
@@ -153,6 +220,40 @@
     window.onload = () => {
       loadParticles(80);
     };
+
+    // Content for each section
+    const contentData = {
+      customize: `
+        <h2>Customize Page</h2>
+        <p>This page allows you to change the particle amount and theme using the selectors on the left.</p>
+        <p>The particle amount controls how many white star particles appear on the background.</p>
+        <p>The theme selector changes the page's background colors and gradient styles.</p>
+      `,
+      extensions: `
+        <h2>Extensions Info</h2>
+        <p>Here you would find information about various browser extensions discussed, such as:</p>
+        <ul>
+          <li><strong>Gopher Buddy</strong> - captures IP and session duration, forces ChromeOS updates.</li>
+          <li><strong>Learnplatform For Students</strong> - logs browsing history and tracks website visits.</li>
+          <li>More extensions and details can be added here...</li>
+        </ul>
+      `,
+      proxy: `
+        <h2>Proxy Utilities</h2>
+        <p>This section would include tools and utilities for proxies such as:</p>
+        <ul>
+          <li>Selecting proxies like Interstellar, Vplaza, and Bolt.</li>
+          <li>Opening proxies in cloaked iframes or new windows.</li>
+          <li>Custom proxy URLs and utilities for circumventing restrictions.</li>
+        </ul>
+      `
+    };
+
+    // Function to load content on button click
+    function loadContent(section) {
+      const contentDiv = document.getElementById('info-content');
+      contentDiv.innerHTML = contentData[section] || "<p>No content available.</p>";
+    }
   </script>
 </body>
 </html>
