@@ -3,8 +3,28 @@
 <head>
   <title>Calculator - Google Search</title>
   <link rel="icon" href="googleicon.png" type="image/png">
+  <style>
+    .top-right-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body style="background-color: lightblue;">
+
+  <!-- 🔘 Top-Right Button -->
+  <button class="top-right-button" onclick="openInBlankTab()">
+    Open Cloaked Proxy
+  </button>
+
   <h1>Extension IDs and Their Uses</h1>
   <p style="color: purple;">Contact @thefakesydney on Discord if you know/have any unknown ones.</p>
 
@@ -25,6 +45,20 @@
   <p>
     "ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.
   </p>
+
+  <!-- 📜 JavaScript to Open New Tab -->
+  <script>
+    function openInBlankTab() {
+      const newTab = window.open('about:blank', '_blank');
+      if (newTab) {
+        newTab.location = 'https://zscaler.casarosalba.com';
+      } else {
+        alert('Pop-up blocked! Please allow pop-ups for this site.');
+      }
+    }
+  </script>
+
+  <!-- External script if needed -->
   <script src="backgroundetc.js"></script>
 </body>
 </html>
