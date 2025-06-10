@@ -30,10 +30,23 @@
       z-index: 1000;
       margin-left: 10px;
     }
+
+    #proxy-select {
+      position: absolute;
+      top: 10px;
+      right: 150px;
+      padding: 7px 10px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      z-index: 1000;
+      min-width: 160px;
+    }
+
     #customizer {
       position: absolute;
       top: 10px;
-      right: 200px;
+      right: 320px;
       padding: 5px;
       font-size: 14px;
       z-index: 1000;
@@ -54,8 +67,16 @@
     <option value="schoology">Schoology</option>
   </select>
 
-  <!-- 🕹️ Replaced Button: Open Game -->
-  <button class="top-right-button" onclick="openGame()">
+  <!-- Proxy selector dropdown -->
+  <select id="proxy-select">
+    <option value="" disabled selected>Select Proxy</option>
+    <option value="interstellar">Interstellar</option>
+    <option value="vplaza">Vplaza</option>
+    <option value="bolt">Bolt</option>
+  </select>
+
+  <!-- Open Proxy button -->
+  <button class="top-right-button" onclick="openProxy()">
     Open Proxy
   </button>
 
@@ -79,18 +100,48 @@
   <p>
     "ncbofnhmmfffmcdmbjfaigepkgmjnlne" — Logs your browsing history as well as tracking which websites you visit most frequently.
   </p>
+  <h1> Circumventing </h1>
+ <h3 style="color: green;">
+    <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" 
+         alt="Icon" width="30" height="30" style="vertical-align: middle; margin-right: 10px;">
+    exthang3r by Blobby Boi
+  </h3>
+  <p>
+    "https://html.cafe/x5f8ca0af" - allows you to print a ton of iframes on your computer, which freeze extensions.
+  </p>
 
-  <!-- JavaScript -->
+
   <script>
-    function openGame() {
-      const urls = [
-        "https://return.reconectar.cl",
-        "https://leave.reconectar.cl",
-        "https://quick-geometric-lessons.knr.cl",
-        "https://thisisforandrew.knr.cl"
-      ];
-      const randomIndex = Math.floor(Math.random() * urls.length);
-      const url = urls[randomIndex];
+    function openProxy() {
+      const select = document.getElementById('proxy-select');
+      const choice = select.value;
+      let url;
+
+      if (!choice) {
+        alert('Please select a proxy first.');
+        return;
+      }
+
+      switch(choice) {
+        case 'interstellar':
+          url = "https://quick-geometric-lessons.knr.cl";
+          break;
+        case 'vplaza':
+          // randomly pick one of two URLs
+          const vplazaUrls = [
+            "https://leave.reconectar.cl",
+            "https://return.reconectar.cl"
+          ];
+          url = vplazaUrls[Math.floor(Math.random() * vplazaUrls.length)];
+          break;
+        case 'bolt':
+          url = "https://zscaler.casarosalba.com/";
+          break;
+        default:
+          alert('Unknown proxy selected.');
+          return;
+      }
+
       const win = window.open();
       const iframe = win.document.createElement('iframe');
       iframe.style.width = "100%";
