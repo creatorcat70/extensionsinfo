@@ -225,7 +225,13 @@ const tabContents = {
 function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
     const bg = window.getComputedStyle(card).backgroundColor;
-    if (bg === "rgb(255, 255, 255)" || bg === "rgba(255, 255, 255, 1)" || bg === "#fff" || bg === "#ffffff") {
+    if (
+      bg === "rgb(255, 255, 255)" ||
+      bg === "rgba(255, 255, 255, 1)" ||
+      bg === "#fff" ||
+      bg === "#ffffff" ||
+      bg === "rgb(248, 249, 250)"
+    ) {
       card.style.color = "#222";
     } else {
       card.style.color = textColor;
@@ -304,6 +310,32 @@ function changeTextColor(color) {
   setContrastTextOnCards(color);
 }
 
+function changeFont(font) {
+  localStorage.setItem('fontFamily', font);
+  document.body.style.fontFamily = font;
+}
+
+function clearSettings() {
+  localStorage.clear();
+  window.location.reload();
+}
+
+function customizeTab(choice) {
+  const configs = {
+    'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
+    'google-classroom': { title: 'Google Classroom', favicon: 'https://ssl.gstatic.com/classroom/favicon.png' },
+    'google-drive': { title: 'Google Drive', favicon: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico' },
+    'google-docs': { title: 'Google Docs', favicon: 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png' },
+    'class-link': { title: 'Class Link', favicon: 'https://www.classlink.com/favicon.ico' },
+    'schoology': { title: 'Schoology', favicon: 'https://www.schoology.com/favicon.ico' }
+  };
+  if (configs[choice]) {
+    localStorage.setItem('tabDisguise', choice);
+    document.title = configs[choice].title;
+    document.getElementById('favicon').href = configs[choice].favicon;
+  }
+}
+
 function restoreCustomizations() {
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) {
@@ -335,32 +367,6 @@ function restoreCustomizations() {
     tabSelect.value = savedTab;
     customizeTab(savedTab);
   }
-}
-
-function customizeTab(choice) {
-  const configs = {
-    'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
-    'google-classroom': { title: 'Google Classroom', favicon: 'https://ssl.gstatic.com/classroom/favicon.png' },
-    'google-drive': { title: 'Google Drive', favicon: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico' },
-    'google-docs': { title: 'Google Docs', favicon: 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png' },
-    'class-link': { title: 'Class Link', favicon: 'https://www.classlink.com/favicon.ico' },
-    'schoology': { title: 'Schoology', favicon: 'https://www.schoology.com/favicon.ico' }
-  };
-  if (configs[choice]) {
-    localStorage.setItem('tabDisguise', choice);
-    document.title = configs[choice].title;
-    document.getElementById('favicon').href = configs[choice].favicon;
-  }
-}
-
-function changeFont(font) {
-  localStorage.setItem('fontFamily', font);
-  document.body.style.fontFamily = font;
-}
-
-function clearSettings() {
-  localStorage.clear();
-  window.location.reload();
 }
 
 function openProxyUrl(url) {
