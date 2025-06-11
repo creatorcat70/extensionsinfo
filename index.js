@@ -125,9 +125,3 @@ window.onload = () => {
   }
 };
 
-// ---- Optional: Add a "Reset" button in your HTML ----
-// <button class="btn btn-secondary" onclick="clearSettings()">Reset Customizations</button>
-function clearSettings() {
-  localStorage.clear();
-  window.location.reload();
-}
