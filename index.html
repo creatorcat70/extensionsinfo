@@ -141,26 +141,104 @@
       border: 0;
       border-top: 2px solid #e0e0e0;
     }
-    @media (max-width: 768px) {
-      .container { padding: 15px; }
-      .content { padding: 20px; }
-      .nav-tabs-row { flex-direction: column; gap: 14px; }
-      .nav-tabs { flex-direction: column; align-items: center; }
-      .nav-tab { width: 200px; }
-      .proxy-row { flex-direction: column; }
-      .header h1 { font-size: 2rem; }
-      .header-icons { justify-content: center; }
+    .exploit-logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 32px 0 24px 0;
+      overflow-x: auto;
     }
-    .text-center { text-align: center; }
-    .mb-20 { margin-bottom: 20px; }
-    .mt-20 { margin-top: 20px; }
+    .exploit-logo-img {
+      height: 72px;
+      width: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.06);
+      padding: 8px;
+      display: block;
+      transition: transform 0.15s;
+      max-width: 220px;
+      object-fit: contain;
+    }
+    .exploit-logo-img:hover {
+      transform: scale(1.07);
+      box-shadow: 0 6px 20px rgba(102,126,234,0.13);
+    }
+    .extprint3r-section {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin: 36px 0 10px 0;
+      padding: 16px 22px 16px 10px;
+      background: #f7f8ff;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(102,126,234,0.09);
+      max-width: 480px;
+      cursor: pointer;
+      transition: box-shadow 0.2s, background 0.2s;
+      border: 1px solid #e7e9ff;
+      margin-left: auto;
+      margin-right: auto;
+      text-decoration: none;
+    }
+    .extprint3r-section:hover {
+      background: #eff2ff;
+      box-shadow: 0 8px 24px rgba(118,75,162,0.11);
+    }
+    .extprint3r-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(118,75,162,0.13);
+      margin-right: 6px;
+      margin-left: 4px;
+    }
+    .extprint3r-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .extprint3r-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .extprint3r-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #4f4b8c;
+      margin-bottom: 2px;
+      line-height: 1.13;
+      letter-spacing: -1px;
+    }
     .status-badge {
       display: inline-block; padding: 4px 12px; border-radius: 20px;
       font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .status-danger { background: #fee; color: #c53030; }
     .status-success { background: #f0fff4; color: #38a169; }
+    .status-danger { background: #fee; color: #c53030; }
     .status-warning { background: #fffbeb; color: #d69e2e; }
+    .extprint3r-desc {
+      color: #333b55;
+      font-size: 1.03rem;
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+    @media (max-width: 900px) {
+      .exploit-logos-row { gap: 10px; }
+      .exploit-logo-img { height: 48px; padding: 5px; }
+    }
+    @media (max-width: 600px) {
+      .exploit-logos-row { gap: 5px; }
+      .exploit-logo-img { height: 36px; padding: 2px; }
+    }
+    .text-center { text-align: center; }
+    .mb-20 { margin-bottom: 20px; }
+    .mt-20 { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -174,6 +252,7 @@
         <button class="nav-tab active" onclick="switchTab('extensions', this)">Extensions</button>
         <button class="nav-tab" onclick="switchTab('customize', this)">Customize</button>
         <button class="nav-tab" onclick="switchTab('proxy', this)">Proxy Tools</button>
+        <button class="nav-tab" onclick="switchTab('exploits', this)">Exploits</button>
         <button class="nav-tab" onclick="switchTab('credits', this)">Credits</button>
       </div>
       <div class="header-icons">
@@ -328,6 +407,38 @@
         </div>
         <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>
       `,
+      exploits: `
+        <h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
+        <div class="exploit-logos-row">
+          <img class="exploit-logo-img" src="https://pbs.twimg.com/profile_images/1282532266535612416/ctwlOq45_400x400.png" alt="Securly">
+          <img class="exploit-logo-img" src="https://pbs.twimg.com/profile_images/1825612745296723968/y8IIQwO0_400x400.png" alt="GoGuardian">
+          <img class="exploit-logo-img" src="https://media.licdn.com/dms/image/v2/C4D0BAQFax2qhFBl5Gw/company-logo_200_200/company-logo_200_200/0/1674567535151/blocksi_logo?e=2147483647&v=beta&t=vaEwFRCnAg9kL8gZsVFZF4cucE4mYb6sYrPHKeW1Rc8" alt="Blocksi">
+          <img class="exploit-logo-img" src="https://www.iboss.com/storage/2022/09/500x144-logo-black@2x.png" alt="iBoss">
+          <img class="exploit-logo-img" src="https://yt3.googleusercontent.com/f0c-GVnSn5iPqQFx8wyloq0kKv-yQISjkcWhD3ZVjeIxm5P1Xyod7zjtRAoQ7ib2yEIVzdgAbQ=s900-c-k-c0x00ffffff-no-rj" alt="Lightspeed">
+          <img class="exploit-logo-img" src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/f23cec1c-1e86-4dc3-9e77-ce04c063ef21.jpeg" alt="Cisco Umbrella">
+          <img class="exploit-logo-img" src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_373119eef0e7e070946a2605069e12a7/webtitan-web-filter.png" alt="WebTitan">
+          <img class="exploit-logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgnKe55CehjQp3lqViwR5yihXr1RbAYp36sw&s" alt="Fortinet/FortiGuard">
+          <img class="exploit-logo-img" src="https://www.rhinonetworks.com/sites/default/files/2023-01/maxresdefault.jpeg" alt="Rhino Networks">
+          <img class="exploit-logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7f8B0lDvS2BiqOk1_MAqWHdczyDSuiXDY6Q&s" alt="NetRef">
+          <img class="exploit-logo-img" src="https://yt3.googleusercontent.com/0Es37cJKe44WHPgdoZ2_A4gEXswmtFwVdiHdAgm2HMjlojhCBvYhXYyjSDxzaeLUP0RjOhBMMw=s900-c-k-c0x00ffffff-no-rj" alt="ContentKeeper">
+          <img class="exploit-logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkypvMKjSs_jGUWRTzW2kFHCZa1HlX6TK2Yg&s" alt="Linewize">
+        </div>
+        <a class="extprint3r-section" href="https://extprint3r.github.io" target="_blank" rel="noopener">
+          <img class="extprint3r-img" src="https://avatars.githubusercontent.com/u/131911782?v=4" alt="ExtPrint3r Logo">
+          <div class="extprint3r-content">
+            <div class="extprint3r-title-row">
+              <div class="extprint3r-title">ExtPrint3r</div>
+              <span class="status-badge status-success">Available</span>
+            </div>
+            <div class="extprint3r-desc">The successor to ExtHang3r that prints iframes to freeze extensions</div>
+          </div>
+        </a>
+        <div style="text-align:center;margin-top:32px;">
+          <p style="font-size:1.1rem;max-width:600px;margin: 0 auto;">
+            Click a blocker image above to learn more about possible exploits and bypasses for that platform (coming soon).
+          </p>
+        </div>
+      `,
       credits: `
         <h2>Credits</h2>
         <p class="mb-20">Thanks to the contributors who made this project possible.</p>
@@ -372,7 +483,6 @@
               <img src="https://cdn.discordapp.com/avatars/1211851118561329172/0ec92421b3193377a717691869e31bc2?size=1024" alt="Evadion/Elusion" class="credit-avatar">
               <div class="credit-info">
                 <h3>Evadion/Elusion</h3>
-                <p> Developers of the Evadion, Tide, and Acorn proxy. <p>
               </div>
             </div>
           </a>
@@ -388,6 +498,7 @@
       `
     };
 
+    // JS functions for theming, customization, proxy, and tab switching
     const themes = {
       "Navy": { bgGradient: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", textColor: "#FFFFFF", cardBg: "#f8f9fa", cardText: "#333", fontFamily: "Arial, sans-serif" },
       "Wave": { bgGradient: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", textColor: "#001F3F", cardBg: "#ffffff", cardText: "#001F3F", fontFamily: "'Courier New', monospace" },
@@ -531,6 +642,11 @@
       element.classList.add('active');
       const contentArea = document.getElementById('content-area');
       contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
+      if (tabName === 'exploits') {
+        document.title = "Exploits for modern blockers";
+      } else {
+        document.title = "Extension Info";
+      }
       if (tabName === 'customize') setTimeout(restoreCustomizations, 0);
     }
     function openProxyUrl(url) {
