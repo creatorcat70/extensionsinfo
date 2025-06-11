@@ -21,13 +21,24 @@
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .header p { color: rgba(255,255,255,0.9); font-size: 1.1rem; }
+    .nav-tabs-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
     .nav-tabs {
-      display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .nav-tab {
       background: rgba(255,255,255,0.1); color: white; border: none; padding: 12px 24px;
       border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;
       backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; gap: 8px;
     }
     .nav-tab:hover {
       background: rgba(255,255,255,0.2); transform: translateY(-2px);
@@ -36,6 +47,25 @@
     .nav-tab.active {
       background: white; color: #667eea;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      background: white;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      cursor: pointer;
+    }
+    .header-icon:hover {
+      transform: scale(1.11) rotate(-5deg);
+      box-shadow: 0 4px 16px rgba(102,126,234,0.18);
     }
     .content {
       background: white; border-radius: 20px; padding: 40px;
@@ -96,10 +126,12 @@
     @media (max-width: 768px) {
       .container { padding: 15px; }
       .content { padding: 20px; }
+      .nav-tabs-row { flex-direction: column; gap: 14px; }
       .nav-tabs { flex-direction: column; align-items: center; }
       .nav-tab { width: 200px; }
       .proxy-row { flex-direction: column; }
       .header h1 { font-size: 2rem; }
+      .header-icons { justify-content: center; }
     }
     .text-center { text-align: center; }
     .mb-20 { margin-bottom: 20px; }
@@ -119,11 +151,21 @@
       <h1>Extension Info</h1>
     </div>
 
-    <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('extensions', this)">Extensions</button>
-      <button class="nav-tab" onclick="switchTab('customize', this)">Customize</button>
-      <button class="nav-tab" onclick="switchTab('proxy', this)">Proxy Tools</button>
-      <button class="nav-tab" onclick="switchTab('credits', this)">Credits</button>
+    <div class="nav-tabs-row">
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="switchTab('extensions', this)">Extensions</button>
+        <button class="nav-tab" onclick="switchTab('customize', this)">Customize</button>
+        <button class="nav-tab" onclick="switchTab('proxy', this)">Proxy Tools</button>
+        <button class="nav-tab" onclick="switchTab('credits', this)">Credits</button>
+      </div>
+      <div class="header-icons">
+        <a href="https://discord.gg/ncTW9ztEVY" target="_blank" rel="noopener" title="Discord">
+          <img class="header-icon" src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxsG72wAo9EWJR4yQWyJJaDaK1XdUso6cUMpI9hAdPUU_FNs11cY1X284vsHrnWtRw7oqRpN1m9YAg21d_aNKnIo-&format=source" alt="Discord" />
+        </a>
+        <a href="https://github.com/creatorcat70/extensionsinfo" target="_blank" rel="noopener" title="GitHub">
+          <img class="header-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/2048px-Octicons-mark-github.svg.png" alt="GitHub" />
+        </a>
+      </div>
     </div>
 
     <div class="content" id="content-area">
@@ -319,7 +361,6 @@
       "Magma": { bgGradient: "linear-gradient(135deg, #FF4500 0%, #DC143C 100%)", textColor: "#FFFFFF", cardBg: "#2d1b1b", cardText: "#FFFFFF", fontFamily: "'Comic Sans MS', cursive" }
     };
 
-    // Helper function to adjust color brightness
     function adjustBrightness(hex, percent) {
       const num = parseInt(hex.replace("#", ""), 16);
       const amt = Math.round(2.55 * percent);
@@ -331,7 +372,6 @@
         (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
     }
 
-    // Theme & customization functions (with localStorage)
     function applyTheme(themeName) {
       if (!themeName || themeName === "Default") {
         localStorage.removeItem('selectedTheme');
@@ -423,21 +463,18 @@
       document.body.style.fontFamily = font;
     }
     function restoreCustomizations() {
-      // Theme
       const savedTheme = localStorage.getItem('selectedTheme');
       const themeSelect = document.getElementById('theme-select');
       if ((savedTheme || savedTheme === "") && themeSelect) {
         themeSelect.value = savedTheme || "Default";
         applyTheme(savedTheme || "Default");
       }
-      // Tab Disguise
       const savedTab = localStorage.getItem('tabDisguise');
       const tabSelect = document.getElementById('customize-tab-select');
       if (savedTab && tabSelect) {
         tabSelect.value = savedTab;
         customizeTab(savedTab);
       }
-      // Colors
       const savedBg = localStorage.getItem('bgColor');
       const bgColorPicker = document.getElementById('bg-color-picker');
       if (savedBg && bgColorPicker) {
@@ -450,7 +487,6 @@
         textColorPicker.value = savedText;
         changeTextColor(savedText);
       }
-      // Font
       const savedFont = localStorage.getItem('fontFamily');
       const fontSelect = document.getElementById('font-select');
       if (savedFont && fontSelect) {
@@ -458,8 +494,6 @@
         changeFont(savedFont);
       }
     }
-
-    // --- Tab switching (with restore on customize) ---
     function switchTab(tabName, element) {
       document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
       element.classList.add('active');
@@ -467,8 +501,6 @@
       contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
       if (tabName === 'customize') setTimeout(restoreCustomizations, 0);
     }
-
-    // Proxy and other utility functions (unchanged)
     function openProxyUrl(url) {
       if (!url) { alert("Please enter a valid URL."); return; }
       const win = window.open();
@@ -521,11 +553,8 @@
       localStorage.clear();
       window.location.reload();
     }
-
-    // --- Page Load: set extensions tab + restore overall theme/colors/font ---
     window.onload = () => {
       document.getElementById('content-area').innerHTML = contentData.extensions;
-      // Restore overall theme/colors/font if set
       const savedTheme = localStorage.getItem('selectedTheme');
       applyTheme(savedTheme || "Default");
       const savedBg = localStorage.getItem('bgColor');
@@ -535,7 +564,7 @@
       const savedFont = localStorage.getItem('fontFamily');
       if (savedFont) changeFont(savedFont);
     };
-    document.body.style.backgroundColor = "darkblue"; // (background.js logic)
+    document.body.style.backgroundColor = "darkblue";
   </script>
 </body>
 </html>
