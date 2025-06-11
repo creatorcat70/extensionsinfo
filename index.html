@@ -20,6 +20,13 @@
       color: white; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    .header .byline {
+      color: #e0e4ff;
+      font-size: 1.12rem;
+      margin-bottom: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
     .header p { color: rgba(255,255,255,0.9); font-size: 1.1rem; }
     .nav-tabs-row {
       display: flex;
@@ -160,6 +167,7 @@
   <div class="container">
     <div class="header">
       <h1>Extension Info</h1>
+      <div class="byline">Developed By Quantum Matrix</div>
     </div>
     <div class="nav-tabs-row">
       <div class="nav-tabs">
@@ -177,9 +185,7 @@
         </a>
       </div>
     </div>
-    <div class="content" id="content-area">
-      <!-- Extensions content will be loaded here by default -->
-    </div>
+    <div class="content" id="content-area"></div>
   </div>
   <script>
     const contentData = {
@@ -367,11 +373,19 @@
               </div>
             </div>
           </a>
+          <a href="https://discord.gg/NwSjTp3DNF" target="_blank" style="text-decoration:none;">
+            <div class="credit-card" style="cursor:pointer;">
+              <img src="https://cdn.discordapp.com/avatars/1312086316439306280/bc16714687e41e09f3112a43bda8ef87?size=1024" alt="Unblockee" class="credit-avatar">
+              <div class="credit-info">
+                <h3>Unblockee</h3>
+              </div>
+            </div>
+          </a>
         </div>
       `
     };
 
-    // Theme data and helpers (same as previous)
+    // THEMES
     const themes = {
       "Navy": { bgGradient: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", textColor: "#FFFFFF", cardBg: "#f8f9fa", cardText: "#333", fontFamily: "Arial, sans-serif" },
       "Wave": { bgGradient: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", textColor: "#001F3F", cardBg: "#ffffff", cardText: "#001F3F", fontFamily: "'Courier New', monospace" },
