@@ -454,6 +454,7 @@
             <option value="'Lucida Console', monospace">Lucida Console</option>
           </select>
         </div>
+        <button class="btn btn-secondary" onclick="clearSettings()">Reset Customizations</button>
       `,
 
       proxy: `
@@ -528,18 +529,6 @@
       `
     };
 
-    // Tab switching functionality
-    function switchTab(tabName, element) {
-      // Remove active class from all tabs
-      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-      // Add active class to clicked tab
-      element.classList.add('active');
-      
-      // Load content
-      const contentArea = document.getElementById('content-area');
-      contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
-    }
-
     // Theme functionality
     const themes = {
       "Navy": { 
@@ -579,85 +568,6 @@
       }
     };
 
-    function applyTheme(themeName) {
-      if (!themes[themeName]) return;
-      const theme = themes[themeName];
-      
-      // Apply background gradient
-      document.body.style.background = theme.bgGradient;
-      document.body.style.color = theme.textColor;
-      document.body.style.fontFamily = theme.fontFamily;
-      
-      // Update all cards and content areas
-      const cards = document.querySelectorAll('.extension-card, .credit-card, .content');
-      cards.forEach(card => {
-        if (card.classList.contains('content')) {
-          // Keep content area white for readability
-          card.style.background = '#ffffff';
-          card.style.color = '#333';
-        } else {
-          card.style.background = theme.cardBg;
-          card.style.color = theme.cardText;
-        }
-      });
-      
-      // Update form elements for better contrast
-      const formElements = document.querySelectorAll('.form-control, .form-select');
-      formElements.forEach(element => {
-        if (themeName === 'Dark blue' || themeName === 'Monument') {
-          element.style.background = theme.cardBg;
-          element.style.color = theme.cardText;
-          element.style.borderColor = theme.textColor;
-        } else {
-          element.style.background = '#ffffff';
-          element.style.color = '#333';
-          element.style.borderColor = '#e9ecef';
-        }
-      });
-      
-      // Update color pickers to reflect current theme
-      const bgColorPicker = document.getElementById('bg-color-picker');
-      const textColorPicker = document.getElementById('text-color-picker');
-      if (bgColorPicker) bgColorPicker.value = theme.bgGradient.includes('#') ? theme.bgGradient.match(/#[0-9A-Fa-f]{6}/)[0] : '#667eea';
-      if (textColorPicker) textColorPicker.value = theme.textColor;
-    }
-
-    // Tab customization
-    function customizeTab(choice) {
-      const configs = {
-        'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
-        'google-classroom': { title: 'Google Classroom', favicon: 'https://ssl.gstatic.com/classroom/favicon.png' },
-        'google-drive': { title: 'Google Drive', favicon: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico' },
-        'google-docs': { title: 'Google Docs', favicon: 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png' },
-        'class-link': { title: 'Class Link', favicon: 'https://www.classlink.com/favicon.ico' },
-        'schoology': { title: 'Schoology', favicon: 'https://www.schoology.com/favicon.ico' }
-      };
-
-      if (configs[choice]) {
-        document.title = configs[choice].title;
-        document.getElementById('favicon').href = configs[choice].favicon;
-      }
-    }
-
-    // Color customization
-    function changeBackgroundColor(color) {
-      document.body.style.background = `linear-gradient(135deg, ${color} 0%, ${adjustBrightness(color, -20)} 100%)`;
-    }
-
-    function changeTextColor(color) {
-      document.body.style.color = color;
-      
-      // Also update header text color for better visibility
-      const headers = document.querySelectorAll('.header h1, .header p');
-      headers.forEach(header => {
-        header.style.color = color;
-      });
-    }
-
-    function changeFont(font) {
-      document.body.style.fontFamily = font;
-    }
-
     // Helper function to adjust color brightness
     function adjustBrightness(hex, percent) {
       const num = parseInt(hex.replace("#", ""), 16);
@@ -670,7 +580,127 @@
         (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
     }
 
-    // Proxy functionality
+    // Theme & customization functions (with localStorage)
+    function applyTheme(themeName) {
+      if (!themes[themeName]) return;
+      localStorage.setItem('selectedTheme', themeName);
+      const theme = themes[themeName];
+      document.body.style.background = theme.bgGradient;
+      document.body.style.color = theme.textColor;
+      document.body.style.fontFamily = theme.fontFamily;
+      const cards = document.querySelectorAll('.extension-card, .credit-card, .content');
+      cards.forEach(card => {
+        if (card.classList.contains('content')) {
+          card.style.background = '#ffffff';
+          card.style.color = '#333';
+        } else {
+          card.style.background = theme.cardBg;
+          card.style.color = theme.cardText;
+        }
+      });
+      const formElements = document.querySelectorAll('.form-control, .form-select');
+      formElements.forEach(element => {
+        if (themeName === 'Dark blue' || themeName === 'Monument') {
+          element.style.background = theme.cardBg;
+          element.style.color = theme.cardText;
+          element.style.borderColor = theme.textColor;
+        } else {
+          element.style.background = '#ffffff';
+          element.style.color = '#333';
+          element.style.borderColor = '#e9ecef';
+        }
+      });
+      const bgColorPicker = document.getElementById('bg-color-picker');
+      const textColorPicker = document.getElementById('text-color-picker');
+      if (bgColorPicker) bgColorPicker.value = theme.bgGradient.includes('#') ? theme.bgGradient.match(/#[0-9A-Fa-f]{6}/)[0] : '#667eea';
+      if (textColorPicker) textColorPicker.value = theme.textColor;
+    }
+
+    function customizeTab(choice) {
+      const configs = {
+        'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
+        'google-classroom': { title: 'Google Classroom', favicon: 'https://ssl.gstatic.com/classroom/favicon.png' },
+        'google-drive': { title: 'Google Drive', favicon: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico' },
+        'google-docs': { title: 'Google Docs', favicon: 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png' },
+        'class-link': { title: 'Class Link', favicon: 'https://www.classlink.com/favicon.ico' },
+        'schoology': { title: 'Schoology', favicon: 'https://www.schoology.com/favicon.ico' }
+      };
+      if (configs[choice]) {
+        localStorage.setItem('tabDisguise', choice);
+        document.title = configs[choice].title;
+        document.getElementById('favicon').href = configs[choice].favicon;
+      }
+    }
+
+    function changeBackgroundColor(color) {
+      localStorage.setItem('bgColor', color);
+      document.body.style.background = `linear-gradient(135deg, ${color} 0%, ${adjustBrightness(color, -20)} 100%)`;
+    }
+
+    function changeTextColor(color) {
+      localStorage.setItem('textColor', color);
+      document.body.style.color = color;
+      const headers = document.querySelectorAll('.header h1, .header p');
+      headers.forEach(header => {
+        header.style.color = color;
+      });
+    }
+
+    function changeFont(font) {
+      localStorage.setItem('fontFamily', font);
+      document.body.style.fontFamily = font;
+    }
+
+    // Restore user settings to the Customize tab controls and apply them to page
+    function restoreCustomizations() {
+      // Theme
+      const savedTheme = localStorage.getItem('selectedTheme');
+      const themeSelect = document.getElementById('theme-select');
+      if (savedTheme && themeSelect) {
+        themeSelect.value = savedTheme;
+        applyTheme(savedTheme);
+      }
+      // Tab Disguise
+      const savedTab = localStorage.getItem('tabDisguise');
+      const tabSelect = document.getElementById('customize-tab-select');
+      if (savedTab && tabSelect) {
+        tabSelect.value = savedTab;
+        customizeTab(savedTab);
+      }
+      // Colors
+      const savedBg = localStorage.getItem('bgColor');
+      const bgColorPicker = document.getElementById('bg-color-picker');
+      if (savedBg && bgColorPicker) {
+        bgColorPicker.value = savedBg;
+        changeBackgroundColor(savedBg);
+      }
+      const savedText = localStorage.getItem('textColor');
+      const textColorPicker = document.getElementById('text-color-picker');
+      if (savedText && textColorPicker) {
+        textColorPicker.value = savedText;
+        changeTextColor(savedText);
+      }
+      // Font
+      const savedFont = localStorage.getItem('fontFamily');
+      const fontSelect = document.getElementById('font-select');
+      if (savedFont && fontSelect) {
+        fontSelect.value = savedFont;
+        changeFont(savedFont);
+      }
+    }
+
+    // Tab switching functionality, now with restore on Customize tab
+    function switchTab(tabName, element) {
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      element.classList.add('active');
+      const contentArea = document.getElementById('content-area');
+      contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
+      if (tabName === "customize") {
+        setTimeout(restoreCustomizations, 0);
+      }
+    }
+
+    // Proxy and other functions (unchanged)
     function openProxyUrl(url) {
       if (!url) {
         alert("Please enter a valid URL.");
@@ -690,12 +720,10 @@
     function openSelectedProxy() {
       const select = document.getElementById('proxy-select');
       const choice = select.value;
-      
       if (!choice) {
         alert('Please select a proxy first.');
         return;
       }
-
       const proxyUrls = {
         'interstellar': "https://quick-geometric-lessons.knr.cl",
         'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
@@ -717,12 +745,10 @@
           "https://chempioneers.online/"
         ]
       };
-
       let url = proxyUrls[choice];
       if (Array.isArray(url)) {
         url = url[Math.floor(Math.random() * url.length)];
       }
-
       openProxyUrl(url);
     }
 
@@ -739,10 +765,28 @@
       openProxyUrl(url);
     }
 
-    // Initialize with extensions tab
+    // Optional: reset
+    function clearSettings() {
+      localStorage.clear();
+      window.location.reload();
+    }
+
+    // Initialize: Restore overall theme/colors/font on load
     window.onload = () => {
       document.getElementById('content-area').innerHTML = contentData.extensions;
+      // Restore theme/colors/font for overall page (default landing tab)
+      const savedTheme = localStorage.getItem('selectedTheme');
+      if (savedTheme) applyTheme(savedTheme);
+      const savedBg = localStorage.getItem('bgColor');
+      if (savedBg) changeBackgroundColor(savedBg);
+      const savedText = localStorage.getItem('textColor');
+      if (savedText) changeTextColor(savedText);
+      const savedFont = localStorage.getItem('fontFamily');
+      if (savedFont) changeFont(savedFont);
     };
+
+    // (EXTRA) background.js logic as requested
+    document.body.style.backgroundColor = "darkblue";
   </script>
 </body>
 </html>
