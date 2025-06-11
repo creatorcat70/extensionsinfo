@@ -115,14 +115,25 @@
     .credit-card {
       display: flex; align-items: center; gap: 20px;
       background: #f8f9fa; padding: 20px; border-radius: 12px;
+      transition: box-shadow 0.2s;
     }
-    .credit-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .credit-card:hover {
+      box-shadow: 0 5px 20px rgba(102,126,234,0.18);
+    }
+    .credit-avatar {
+      width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+    }
     .credit-info h3 {
       margin-bottom: 5px; color: #333; display: flex; align-items: center; gap: 8px;
     }
     .credit-info p { color: #666; margin: 0; }
     .github-logo { width: 20px; height: 20px; opacity: 0.7; transition: opacity 0.3s ease; }
     .github-logo:hover { opacity: 1; }
+    hr.credits-divider {
+      margin: 40px 0 24px 0;
+      border: 0;
+      border-top: 2px solid #e0e0e0;
+    }
     @media (max-width: 768px) {
       .container { padding: 15px; }
       .content { padding: 20px; }
@@ -150,7 +161,6 @@
     <div class="header">
       <h1>Extension Info</h1>
     </div>
-
     <div class="nav-tabs-row">
       <div class="nav-tabs">
         <button class="nav-tab active" onclick="switchTab('extensions', this)">Extensions</button>
@@ -167,12 +177,10 @@
         </a>
       </div>
     </div>
-
     <div class="content" id="content-area">
       <!-- Extensions content will be loaded here by default -->
     </div>
   </div>
-
   <script>
     const contentData = {
       extensions: `
@@ -348,9 +356,22 @@
             </div>
           </div>
         </div>
+        <hr class="credits-divider">
+        <h2 style="margin-bottom:18px;">Partners</h2>
+        <div class="credits-grid">
+          <a href="https://dsc.gg/linewize" target="_blank" style="text-decoration:none;">
+            <div class="credit-card" style="cursor:pointer;">
+              <img src="https://cdn.discordapp.com/avatars/1211851118561329172/0ec92421b3193377a717691869e31bc2?size=1024" alt="Evadion/Elusion" class="credit-avatar">
+              <div class="credit-info">
+                <h3>Evadion/Elusion</h3>
+              </div>
+            </div>
+          </a>
+        </div>
       `
     };
 
+    // Theme data and helpers (same as previous)
     const themes = {
       "Navy": { bgGradient: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", textColor: "#FFFFFF", cardBg: "#f8f9fa", cardText: "#333", fontFamily: "Arial, sans-serif" },
       "Wave": { bgGradient: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", textColor: "#001F3F", cardBg: "#ffffff", cardText: "#001F3F", fontFamily: "'Courier New', monospace" },
@@ -358,7 +379,6 @@
       "Monument": { bgGradient: "linear-gradient(135deg, #565051 0%, #2d2a2e 100%)", textColor: "#F5F5F5", cardBg: "#3a3a3a", cardText: "#F5F5F5", fontFamily: "'Lucida Console', monospace" },
       "Magma": { bgGradient: "linear-gradient(135deg, #FF4500 0%, #DC143C 100%)", textColor: "#FFFFFF", cardBg: "#2d1b1b", cardText: "#FFFFFF", fontFamily: "'Comic Sans MS', cursive" }
     };
-
     function adjustBrightness(hex, percent) {
       const num = parseInt(hex.replace("#", ""), 16);
       const amt = Math.round(2.55 * percent);
@@ -369,7 +389,6 @@
         (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
         (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
     }
-
     function applyTheme(themeName) {
       if (!themeName || themeName === "Default") {
         localStorage.removeItem('selectedTheme');
@@ -430,7 +449,6 @@
       if (bgColorPicker) bgColorPicker.value = theme.bgGradient.includes('#') ? theme.bgGradient.match(/#[0-9A-Fa-f]{6}/)[0] : '#667eea';
       if (textColorPicker) textColorPicker.value = theme.textColor;
     }
-
     function customizeTab(choice) {
       const configs = {
         'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
