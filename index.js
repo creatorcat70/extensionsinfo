@@ -222,80 +222,119 @@ const tabContents = {
     </div>`
 };
 
-function getContrastTextColor(bgHex) {
-  bgHex = bgHex.replace('#', '');
-  if (bgHex.length === 3) bgHex = bgHex[0] + bgHex[0] + bgHex[1] + bgHex[1] + bgHex[2] + bgHex[2];
-  var r = parseInt(bgHex.substr(0,2),16);
-  var g = parseInt(bgHex.substr(2,2),16);
-  var b = parseInt(bgHex.substr(4,2),16);
-  var luminance = 0.299*r + 0.587*g + 0.114*b;
-  return luminance > 186 ? "#222" : "#fff";
-}
-
-function extractMainBgColor(bgStyle) {
-  var match = bgStyle.match(/#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/);
-  if (match) return "#" + match[1];
-  return "#667eea";
-}
-
-function setTextContrastForBg(bgStyle) {
-  var bgColor = extractMainBgColor(bgStyle);
-  var textColor = getContrastTextColor(bgColor);
-  document.body.style.color = textColor;
-  document.querySelectorAll('.header h1, .header p, .header .byline').forEach(header => {
-    header.style.color = textColor;
-  });
+function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
-    card.style.color = textColor;
-    if (window.getComputedStyle(card).backgroundColor === "rgb(255, 255, 255)")
+    const bg = window.getComputedStyle(card).backgroundColor;
+    if (bg === "rgb(255, 255, 255)" || bg === "rgba(255, 255, 255, 1)" || bg === "#fff" || bg === "#ffffff") {
       card.style.color = "#222";
+    } else {
+      card.style.color = textColor;
+    }
   });
+}
+
+function setBodyStyles({ bg, color, font }) {
+  document.body.style.background = bg;
+  document.body.style.color = color;
+  document.body.style.fontFamily = font;
+  document.querySelectorAll('.header h1, .header p, .header .byline').forEach(header => {
+    header.style.color = color;
+  });
+  setContrastTextOnCards(color);
 }
 
 function applyTheme(themeName, persist = true) {
   if (!themeName || themeName === "Default") {
-    var bg = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
-    document.body.style.background = bg;
-    setTextContrastForBg(bg);
-    document.body.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif";
+    setBodyStyles({
+      bg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      color: "#333",
+      font: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif"
+    });
     if (persist) localStorage.setItem('theme', 'Default');
     return;
   }
-  var themes = {
-    "Navy": { bg: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", font: "Arial, sans-serif" },
-    "Wave": { bg: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", font: "'Courier New', monospace" },
-    "Dark blue": { bg: "linear-gradient(135deg, #0B3D91 0%, #1E3A8A 100%)", font: "'Times New Roman', serif" },
-    "Monument": { bg: "linear-gradient(135deg, #565051 0%, #2d2a2e 100%)", font: "'Lucida Console', monospace" },
-    "Magma": { bg: "linear-gradient(135deg, #FF4500 0%, #DC143C 100%)", font: "'Comic Sans MS', cursive" }
+  const themes = {
+    "Navy": { bg: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", color: "#fff", font: "Arial, sans-serif" },
+    "Wave": { bg: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", color: "#001F3F", font: "'Courier New', monospace" },
+    "Dark blue": { bg: "linear-gradient(135deg, #0B3D91 0%, #1E3A8A 100%)", color: "#E6E6FA", font: "'Times New Roman', serif" },
+    "Monument": { bg: "linear-gradient(135deg, #565051 0%, #2d2a2e 100%)", color: "#F5F5F5", font: "'Lucida Console', monospace" },
+    "Magma": { bg: "linear-gradient(135deg, #FF4500 0%, #DC143C 100%)", color: "#fff", font: "'Comic Sans MS', cursive" }
   };
-  var t = themes[themeName] || themes.Default;
-  document.body.style.background = t.bg;
-  setTextContrastForBg(t.bg);
-  document.body.style.fontFamily = t.font;
+  const t = themes[themeName] || themes.Default;
+  setBodyStyles(t);
   if (persist) localStorage.setItem('theme', themeName);
 }
 
 function changeBackgroundColor(color) {
   localStorage.setItem('bgColor', color);
-  var bg = `linear-gradient(135deg, ${color} 0%, #764ba2 100%)`;
-  document.body.style.background = bg;
-  setTextContrastForBg(bg);
+  document.body.style.background = `linear-gradient(135deg, ${color} 0%, #764ba2 100%)`;
+  adjustTextColorForBackground(color);
+}
+
+function adjustTextColorForBackground(hexColor) {
+  hexColor = hexColor.replace('#', '');
+  let r = parseInt(hexColor.substring(0,2),16);
+  let g = parseInt(hexColor.substring(2,4),16);
+  let b = parseInt(hexColor.substring(4,6),16);
+  let luminance = 0.299*r + 0.587*g + 0.114*b;
+  let textColor = (luminance > 186) ? "#222" : "#fff";
+  document.body.style.color = textColor;
+  document.querySelectorAll('.header h1, .header p, .header .byline').forEach(header => {
+    header.style.color = textColor;
+  });
+  setContrastTextOnCards(textColor);
+  localStorage.setItem('textColor', textColor);
+  let textColorPicker = document.getElementById('text-color-picker');
+  if (textColorPicker) textColorPicker.value = rgbToHex(textColor);
+}
+
+function rgbToHex(rgb) {
+  if (rgb[0]==="#") return rgb;
+  rgb = rgb.replace(/[^\d,]/g, '').split(',');
+  return "#" + rgb.map(x => {
+    x = parseInt(x).toString(16);
+    return (x.length==1 ? "0"+x : x);
+  }).join('');
 }
 
 function changeTextColor(color) {
   localStorage.setItem('textColor', color);
   document.body.style.color = color;
   document.querySelectorAll('.header h1, .header p, .header .byline').forEach(header => { header.style.color = color; });
+  setContrastTextOnCards(color);
 }
 
-function changeFont(font) {
-  localStorage.setItem('fontFamily', font);
-  document.body.style.fontFamily = font;
-}
-
-function clearSettings() {
-  localStorage.clear();
-  window.location.reload();
+function restoreCustomizations() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    let themeSelect = document.getElementById('theme-select');
+    if (themeSelect) themeSelect.value = savedTheme;
+    applyTheme(savedTheme, false);
+  }
+  const savedBg = localStorage.getItem('bgColor');
+  const bgColorPicker = document.getElementById('bg-color-picker');
+  if (savedBg && bgColorPicker) {
+    bgColorPicker.value = savedBg;
+    changeBackgroundColor(savedBg);
+  }
+  const savedText = localStorage.getItem('textColor');
+  const textColorPicker = document.getElementById('text-color-picker');
+  if (savedText && textColorPicker) {
+    textColorPicker.value = savedText;
+    changeTextColor(savedText);
+  }
+  const savedFont = localStorage.getItem('fontFamily');
+  const fontSelect = document.getElementById('font-select');
+  if (savedFont && fontSelect) {
+    fontSelect.value = savedFont;
+    changeFont(savedFont);
+  }
+  const savedTab = localStorage.getItem('tabDisguise');
+  const tabSelect = document.getElementById('customize-tab-select');
+  if (savedTab && tabSelect) {
+    tabSelect.value = savedTab;
+    customizeTab(savedTab);
+  }
 }
 
 function customizeTab(choice) {
@@ -312,6 +351,16 @@ function customizeTab(choice) {
     document.title = configs[choice].title;
     document.getElementById('favicon').href = configs[choice].favicon;
   }
+}
+
+function changeFont(font) {
+  localStorage.setItem('fontFamily', font);
+  document.body.style.fontFamily = font;
+}
+
+function clearSettings() {
+  localStorage.clear();
+  window.location.reload();
 }
 
 function openProxyUrl(url) {
@@ -448,39 +497,6 @@ function switchTab(tabName, element) {
     document.title = "Extension Info";
     if (tabName === 'exploits') setTimeout(setupExploitImageClicks, 0);
     if (tabName === 'customize') setTimeout(restoreCustomizations, 0);
-  }
-}
-
-function restoreCustomizations() {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) {
-    let themeSelect = document.getElementById('theme-select');
-    if (themeSelect) themeSelect.value = savedTheme;
-    applyTheme(savedTheme, false);
-  }
-  const savedBg = localStorage.getItem('bgColor');
-  const bgColorPicker = document.getElementById('bg-color-picker');
-  if (savedBg && bgColorPicker) {
-    bgColorPicker.value = savedBg;
-    changeBackgroundColor(savedBg);
-  }
-  const savedText = localStorage.getItem('textColor');
-  const textColorPicker = document.getElementById('text-color-picker');
-  if (savedText && textColorPicker) {
-    textColorPicker.value = savedText;
-    changeTextColor(savedText);
-  }
-  const savedFont = localStorage.getItem('fontFamily');
-  const fontSelect = document.getElementById('font-select');
-  if (savedFont && fontSelect) {
-    fontSelect.value = savedFont;
-    changeFont(savedFont);
-  }
-  const savedTab = localStorage.getItem('tabDisguise');
-  const tabSelect = document.getElementById('customize-tab-select');
-  if (savedTab && tabSelect) {
-    tabSelect.value = savedTab;
-    customizeTab(savedTab);
   }
 }
 
