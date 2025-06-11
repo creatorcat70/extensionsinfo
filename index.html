@@ -27,119 +27,9 @@
       font-weight: 500;
       letter-spacing: 0.5px;
     }
-    .header p { color: rgba(255,255,255,0.9); font-size: 1.1rem; }
-    .nav-tabs-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-    .nav-tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .nav-tab {
-      background: rgba(255,255,255,0.1); color: white; border: none; padding: 12px 24px;
-      border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;
-      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .nav-tab:hover {
-      background: rgba(255,255,255,0.2); transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .nav-tab.active {
-      background: white; color: #667eea;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .header-icons {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .header-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      transition: transform 0.2s;
-      background: white;
-      object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-      cursor: pointer;
-    }
-    .header-icon:hover {
-      transform: scale(1.11) rotate(-5deg);
-      box-shadow: 0 4px 16px rgba(102,126,234,0.18);
-    }
     .content {
       background: white; border-radius: 20px; padding: 40px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.1); backdrop-filter: blur(10px); min-height: 500px;
-    }
-    .extension-grid { display: grid; gap: 20px; margin-top: 20px; }
-    .extension-card {
-      background: #f8f9fa; padding: 20px; border-radius: 12px;
-      border-left: 4px solid #667eea; transition: all 0.3s ease;
-    }
-    .extension-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-    .extension-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-    .extension-icon { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; }
-    .extension-title { font-size: 1.2rem; font-weight: 600; color: #333; }
-    .extension-description { color: #666; margin-top: 10px; }
-    .form-group { margin-bottom: 20px; }
-    .form-label { display: block; margin-bottom: 8px; font-weight: 500; color: #333; }
-    .form-control, .form-select {
-      width: 100%; padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;
-      font-size: 14px; transition: all 0.3s ease; background: #fff;
-    }
-    .form-control:focus, .form-select:focus {
-      outline: none; border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-    .btn {
-      padding: 12px 24px; border: none; border-radius: 8px; font-weight: 500;
-      cursor: pointer; transition: all 0.3s ease; text-decoration: none;
-      display: inline-block; text-align: center;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-    .btn-secondary { background: #6c757d; color: white; }
-    .btn-secondary:hover { background: #5a6268; transform: translateY(-2px); }
-    .proxy-row { display: flex; gap: 10px; align-items: end; }
-    .proxy-row .form-group { flex: 1; margin-bottom: 0; }
-    .credits-grid { display: grid; gap: 20px; margin-top: 20px; }
-    .credit-card {
-      display: flex; align-items: center; gap: 20px;
-      background: #f8f9fa; padding: 20px; border-radius: 12px;
-      transition: box-shadow 0.2s;
-    }
-    .credit-card:hover {
-      box-shadow: 0 5px 20px rgba(102,126,234,0.18);
-    }
-    .credit-avatar {
-      width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
-    }
-    .credit-info h3 {
-      margin-bottom: 5px; color: #333; display: flex; align-items: center; gap: 8px;
-    }
-    .credit-info p { color: #666; margin: 0; }
-    .github-logo { width: 20px; height: 20px; opacity: 0.7; transition: opacity 0.3s ease; }
-    .github-logo:hover { opacity: 1; }
-    hr.credits-divider {
-      margin: 40px 0 24px 0;
-      border: 0;
-      border-top: 2px solid #e0e0e0;
     }
     .exploit-logos-row {
       display: flex;
@@ -221,14 +111,6 @@
       font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
     }
     .status-success { background: #f0fff4; color: #38a169; }
-    .status-danger { background: #fee; color: #c53030; }
-    .status-warning { background: #fffbeb; color: #d69e2e; }
-    .extprint3r-desc {
-      color: #333b55;
-      font-size: 1.03rem;
-      margin: 0;
-      letter-spacing: 0.01em;
-    }
     .blank-exploit-page {
       max-width: 600px;
       margin: 0 auto;
@@ -274,6 +156,52 @@
       margin-left: 6px;
       vertical-align: middle;
     }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: transform 0.2s;
+      background: white;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      cursor: pointer;
+    }
+    .header-icon:hover {
+      transform: scale(1.11) rotate(-5deg);
+      box-shadow: 0 4px 16px rgba(102,126,234,0.18);
+    }
+    .nav-tabs-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .nav-tab {
+      background: rgba(255,255,255,0.1); color: white; border: none; padding: 12px 24px;
+      border-radius: 50px; cursor: pointer; font-weight: 500; transition: all 0.3s ease;
+      backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-tab:hover {
+      background: rgba(255,255,255,0.2); transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .nav-tab.active {
+      background: white; color: #667eea;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
     @media (max-width: 900px) {
       .exploit-logos-row { gap: 10px; }
       .exploit-logo-img { height: 48px; padding: 5px; }
@@ -282,10 +210,8 @@
       .exploit-logos-row { gap: 5px; }
       .exploit-logo-img { height: 36px; padding: 2px; }
       .blank-exploit-page { padding: 13px 2vw; }
+      .extprint3r-section { padding: 10px 2vw; }
     }
-    .text-center { text-align: center; }
-    .mb-20 { margin-bottom: 20px; }
-    .mt-20 { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -296,11 +222,11 @@
     </div>
     <div class="nav-tabs-row">
       <div class="nav-tabs">
-        <button class="nav-tab active" onclick="switchTab('extensions', this)">Extensions</button>
-        <button class="nav-tab" onclick="switchTab('customize', this)">Customize</button>
-        <button class="nav-tab" onclick="switchTab('proxy', this)">Proxy Tools</button>
-        <button class="nav-tab" onclick="switchTab('exploits', this)">Exploits</button>
-        <button class="nav-tab" onclick="switchTab('credits', this)">Credits</button>
+        <button class="nav-tab active" id="tab-extensions">Extensions</button>
+        <button class="nav-tab" id="tab-customize">Customize</button>
+        <button class="nav-tab" id="tab-proxy">Proxy Tools</button>
+        <button class="nav-tab" id="tab-exploits">Exploits</button>
+        <button class="nav-tab" id="tab-credits">Credits</button>
       </div>
       <div class="header-icons">
         <a href="https://discord.gg/ncTW9ztEVY" target="_blank" rel="noopener" title="Discord">
@@ -314,147 +240,15 @@
     <div class="content" id="content-area"></div>
   </div>
   <script>
-    const contentData = {
-      extensions: `<h2>Extensions Info</h2>
-        <p class="mb-20">Information about unknown extensions that may be running on your device.</p>
-        <h3>Monitoring Extensions</h3>
-        <div class="extension-grid">
-          <div class="extension-card">
-            <div class="extension-header">
-              <img src="https://lh3.googleusercontent.com/OqjMJCR1HdLJzFst866W8Fn4F96l8E6z8RoGkdPkj5wOKLQKL7U8Fda4aeQxLjIRjWXMW2hNOQ=s640-w640-h400" alt="Gopher Buddy" class="extension-icon">
-              <div>
-                <div class="extension-title">Gopher Buddy</div>
-                <span class="status-badge status-danger">Monitoring</span>
-              </div>
-            </div>
-            <div class="extension-description">
-              ID: <code>ipfchkohmimofadciefnbbdagkmgbipa</code><br>
-              Captures IP addresses and monitors session duration. Forces ChromeOS updates.
-            </div>
-          </div>
-          <div class="extension-card">
-            <div class="extension-header">
-              <img src="https://lh3.googleusercontent.com/PwQcarJTznbbXQyGjcOTLtAPKKGSiksluEjl-dJSJAEXlXqEJ15ogRNbBaMDCf01BDnFALLLgl5TcpQh1l_4skxL=s275-w275-h175" alt="Learnplatform" class="extension-icon">
-              <div>
-                <div class="extension-title">Learnplatform For Students</div>
-                <span class="status-badge status-danger">Tracking</span>
-              </div>
-            </div>
-            <div class="extension-description">
-              ID: <code>ncbofnhmmfffmcdmbjfaigepkgmjnlne</code><br>
-              Logs browsing history and tracks websites that are visited by the user.
-            </div>
-          </div>
-        </div>
-        <h3 class="mt-20">Management Tools</h3>
-        <div class="extension-grid">
-          <div class="extension-card">
-            <div class="extension-header">
-              <img src="https://chrose.netlify.app/detail/exthang3r/assets/icon.png" alt="Exthang3r" class="extension-icon">
-              <div>
-                <div class="extension-title">Exthang3r</div>
-                <span class="status-badge status-success">Available</span>
-              </div>
-            </div>
-            <div class="extension-description">
-              Creates multiple iframes to freeze monitoring extensions.<br>
-              <a href="https://html.cafe/x5f8ca0af" target="_blank" class="btn btn-primary" style="margin-top: 10px; padding: 8px 16px; font-size: 12px;">Open Tool</a>
-            </div>
-          </div>
-          <div class="extension-card">
-            <div class="extension-header">
-              <img src="https://docs.titaniumnetwork.org/img/rigtools1.png" alt="Rigtools" class="extension-icon">
-              <div>
-                <div class="extension-title">Rigtools</div>
-                <span class="status-badge status-warning">Patched 129+</span>
-              </div>
-            </div>
-            <div class="extension-description">
-              Uses devtools:// to disable selected extensions.<br>
-              <a href="https://docs.titaniumnetwork.org/kajigs/rigtools/" target="_blank" class="btn btn-secondary" style="margin-top: 10px; padding: 8px 16px; font-size: 12px;">Learn More</a>
-            </div>
-          </div>
-        </div>`,
-      customize: `<h2>Customize Experience</h2>
-        <p class="mb-20">Personalize your page appearance and tab disguises.</p>
-        <div class="form-group">
-          <label class="form-label">Quick Themes</label>
-          <select class="form-select" id="theme-select" onchange="applyTheme(this.value)">
-            <option value="Default">Default</option>
-            <option value="Navy">Navy</option>
-            <option value="Wave">Wave</option>
-            <option value="Dark blue">Dark Blue</option>
-            <option value="Monument">Monument</option>
-            <option value="Magma">Magma</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tab Disguise</label>
-          <select class="form-select" id="customize-tab-select" onchange="customizeTab(this.value)">
-            <option value="">Choose disguise</option>
-            <option value="google-search-calculator">Calculator (Google Search)</option>
-            <option value="google-classroom">Google Classroom</option>
-            <option value="google-drive">Google Drive</option>
-            <option value="google-docs">Google Docs</option>
-            <option value="class-link">Classlink</option>
-            <option value="schoology">Schoology</option>
-          </select>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-          <div class="form-group">
-            <label class="form-label">Background Color</label>
-            <input type="color" class="form-control" id="bg-color-picker" value="#667eea" onchange="changeBackgroundColor(this.value)">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Text Color</label>
-            <input type="color" class="form-control" id="text-color-picker" value="#333333" onchange="changeTextColor(this.value)">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Font Family</label>
-          <select class="form-select" id="font-select" onchange="changeFont(this.value)">
-            <option value="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System Default</option>
-            <option value="Arial, sans-serif">Arial</option>
-            <option value="'Courier New', monospace">Courier New</option>
-            <option value="'Times New Roman', serif">Times New Roman</option>
-            <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
-            <option value="'Lucida Console', monospace">Lucida Console</option>
-          </select>
-        </div>
-        <button class="btn btn-secondary" onclick="clearSettings()">Reset Customizations</button>`,
-      proxy: `<h2>Proxy Tools</h2>
-        <p class="mb-20">Access proxy services and launch custom URLs safely.</p>
-        <div class="form-group">
-          <label class="form-label">Custom URL Launcher</label>
-          <div class="proxy-row">
-            <div class="form-group">
-              <input type="text" class="form-control" id="custom-proxy-url" placeholder="Enter URL here">
-            </div>
-            <button class="btn btn-primary" onclick="launchCustomUrl()">Launch</button>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Select Proxy Service</label>
-          <select class="form-select" id="proxy-select">
-            <option value="">Choose proxy service</option>
-            <option value="interstellar">Interstellar</option>
-            <option value="vplaza">Vplaza</option>
-            <option value="bolt">Bolt</option>
-            <option value="doge">Doge</option>
-            <option value="evadion">Evadion</option>
-            <option value="terbium">Terbium</option>
-            <option value="tide">Tide</option>
-            <option value="acorn">Acorn</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>`,
-      exploits: `<h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
+    function getExploitsContent() {
+      return `
+        <h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
         <div class="exploit-logos-row">
           <img class="exploit-logo-img" id="securly-exploit-img" src="https://pbs.twimg.com/profile_images/1282532266535612416/ctwlOq45_400x400.png" alt="Securly" tabindex="0">
           <img class="exploit-logo-img" src="https://pbs.twimg.com/profile_images/1825612745296723968/y8IIQwO0_400x400.png" alt="GoGuardian">
           <img class="exploit-logo-img" src="https://media.licdn.com/dms/image/v2/C4D0BAQFax2qhFBl5Gw/company-logo_200_200/company-logo_200_200/0/1674567535151/blocksi_logo?e=2147483647&v=beta&t=vaEwFRCnAg9kL8gZsVFZF4cucE4mYb6sYrPHKeW1Rc8" alt="Blocksi">
           <img class="exploit-logo-img" src="https://www.iboss.com/storage/2022/09/500x144-logo-black@2x.png" alt="iBoss">
-          <img class="exploit-logo-img" src="https://yt3.googleusercontent.com/f0c-GVnSn5iPqQFx8wyloq0kKv-yQISjkcWhD3ZVjeIxm5P1Xyod7zjtRAoQ7ib2yEIVzdgAbQ=s900-c-k-c0x00ffffff-no-rj" alt="Lightspeed">
+          <img class="exploit-logo-img" id="lightspeed-exploit-img" src="https://yt3.googleusercontent.com/f0c-GVnSn5iPqQFx8wyloq0kKv-yQISjkcWhD3ZVjeIxm5P1Xyod7zjtRAoQ7ib2yEIVzdgAbQ=s900-c-k-c0x00ffffff-no-rj" alt="Lightspeed" tabindex="0">
           <img class="exploit-logo-img" src="https://gdm-catalog-fmapi-prod.imgix.net/ProductLogo/f23cec1c-1e86-4dc3-9e77-ce04c063ef21.jpeg" alt="Cisco Umbrella">
           <img class="exploit-logo-img" src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_373119eef0e7e070946a2605069e12a7/webtitan-web-filter.png" alt="WebTitan">
           <img class="exploit-logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgnKe55CehjQp3lqViwR5yihXr1RbAYp36sw&s" alt="Fortinet/FortiGuard">
@@ -475,203 +269,10 @@
         </a>
         <div style="text-align:center;margin-top:32px;">
           <p style="font-size:1.1rem;max-width:600px;margin: 0 auto;">
-            Click a blocker image above to learn more about possible exploits and bypasses for that platform.
+            Click a blocker image above to learn more about possible exploits and bypasses for that platform (coming soon).
           </p>
-        </div>`,
-      credits: `<h2>Credits</h2>
-        <p class="mb-20">Thanks to the contributors who made this project possible.</p>
-        <div class="credits-grid">
-          <div class="credit-card">
-            <img src="https://i.pinimg.com/736x/d8/a9/f3/d8a9f34eed4cbfbf19261395d4166004.jpg" alt="Sydney" class="credit-avatar">
-            <div class="credit-info">
-              <h3>
-                @thefakesydney
-                <a href="https://github.com/creatorcat70" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/250px-GitHub_Invertocat_Logo.svg.png" alt="GitHub" class="github-logo">
-                </a>
-              </h3>
-              <p>Created this website for fun and learning. Not widely known in the proxy community but passionate about web development.</p>
-            </div>
-          </div>
-          <div class="credit-card">
-            <img src="https://cdn.discordapp.com/avatars/919048341197819906/7420b4c183a39b1168795f33ad609af3?size=1024" alt="bebbybonkers" class="credit-avatar">
-            <div class="credit-info">
-              <h3>
-                @bebbybonkers
-                <a href="https://github.com/bebbybonkers" target="_blank" rel="noopener noreferrer">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/250px-GitHub_Invertocat_Logo.svg.png" alt="GitHub" class="github-logo">
-                </a>
-              </h3>
-              <p>Just existed. lol. Hasn't contributed to the project yet but we'll see ;) </p>
-            </div>
-          </div>
-          <div class="credit-card">
-            <img src="https://play-lh.googleusercontent.com/lmG9HlI0awHie0cyBieWXeNjpyXvHPwDBb8MNOVIyp0P8VEh95AiBHtUZSDVR3HLe3A=w600-h300-pc0xffffff-pd" alt="AI Assistant" class="credit-avatar">
-            <div class="credit-info">
-              <h3>AI Assistant</h3>
-              <p>Provided development assistance and guidance for HTML, CSS, and JavaScript implementation.</p>
-            </div>
-          </div>
         </div>
-        <hr class="credits-divider">
-        <h2 style="margin-bottom:18px;">Partners</h2>
-        <div class="credits-grid">
-          <a href="https://dsc.gg/linewize" target="_blank" style="text-decoration:none;">
-            <div class="credit-card" style="cursor:pointer;">
-              <img src="https://cdn.discordapp.com/avatars/1211851118561329172/0ec92421b3193377a717691869e31bc2?size=1024" alt="Evadion/Elusion" class="credit-avatar">
-              <div class="credit-info">
-                <h3>Evadion/Elusion</h3>
-              </div>
-            </div>
-          </a>
-          <a href="https://discord.gg/NwSjTp3DNF" target="_blank" style="text-decoration:none;">
-            <div class="credit-card" style="cursor:pointer;">
-              <img src="https://cdn.discordapp.com/avatars/1312086316439306280/bc16714687e41e09f3112a43bda8ef87?size=1024" alt="Unblockee" class="credit-avatar">
-              <div class="credit-info">
-                <h3>Unblockee</h3>
-              </div>
-            </div>
-          </a>
-        </div>`
-    };
-
-    const themes = {
-      "Navy": { bgGradient: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", textColor: "#FFFFFF", cardBg: "#f8f9fa", cardText: "#333", fontFamily: "Arial, sans-serif" },
-      "Wave": { bgGradient: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", textColor: "#001F3F", cardBg: "#ffffff", cardText: "#001F3F", fontFamily: "'Courier New', monospace" },
-      "Dark blue": { bgGradient: "linear-gradient(135deg, #0B3D91 0%, #1E3A8A 100%)", textColor: "#E6E6FA", cardBg: "#1f2937", cardText: "#E6E6FA", fontFamily: "'Times New Roman', serif" },
-      "Monument": { bgGradient: "linear-gradient(135deg, #565051 0%, #2d2a2e 100%)", textColor: "#F5F5F5", cardBg: "#3a3a3a", cardText: "#F5F5F5", fontFamily: "'Lucida Console', monospace" },
-      "Magma": { bgGradient: "linear-gradient(135deg, #FF4500 0%, #DC143C 100%)", textColor: "#FFFFFF", cardBg: "#2d1b1b", cardText: "#FFFFFF", fontFamily: "'Comic Sans MS', cursive" }
-    };
-    function adjustBrightness(hex, percent) {
-      const num = parseInt(hex.replace("#", ""), 16);
-      const amt = Math.round(2.55 * percent);
-      const R = (num >> 16) + amt;
-      const G = (num >> 8 & 0x00FF) + amt;
-      const B = (num & 0x0000FF) + amt;
-      return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
-        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
-        (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
-    }
-    function applyTheme(themeName) {
-      if (!themeName || themeName === "Default") {
-        localStorage.removeItem('selectedTheme');
-        document.body.style.background = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)";
-        document.body.style.color = "#333";
-        document.body.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif";
-        const cards = document.querySelectorAll('.extension-card, .credit-card, .content');
-        cards.forEach(card => {
-          if (card.classList.contains('content')) {
-            card.style.background = '#ffffff';
-            card.style.color = '#333';
-          } else {
-            card.style.background = "#f8f9fa";
-            card.style.color = "#333";
-          }
-        });
-        const formElements = document.querySelectorAll('.form-control, .form-select');
-        formElements.forEach(element => {
-          element.style.background = '#ffffff';
-          element.style.color = '#333';
-          element.style.borderColor = '#e9ecef';
-        });
-        const bgColorPicker = document.getElementById('bg-color-picker');
-        const textColorPicker = document.getElementById('text-color-picker');
-        if (bgColorPicker) bgColorPicker.value = "#667eea";
-        if (textColorPicker) textColorPicker.value = "#333333";
-        return;
-      }
-      localStorage.setItem('selectedTheme', themeName);
-      const theme = themes[themeName];
-      document.body.style.background = theme.bgGradient;
-      document.body.style.color = theme.textColor;
-      document.body.style.fontFamily = theme.fontFamily;
-      const cards = document.querySelectorAll('.extension-card, .credit-card, .content');
-      cards.forEach(card => {
-        if (card.classList.contains('content')) {
-          card.style.background = '#ffffff';
-          card.style.color = '#333';
-        } else {
-          card.style.background = theme.cardBg;
-          card.style.color = theme.cardText;
-        }
-      });
-      const formElements = document.querySelectorAll('.form-control, .form-select');
-      formElements.forEach(element => {
-        if (themeName === 'Dark blue' || themeName === 'Monument') {
-          element.style.background = theme.cardBg;
-          element.style.color = theme.cardText;
-          element.style.borderColor = theme.textColor;
-        } else {
-          element.style.background = '#ffffff';
-          element.style.color = '#333';
-          element.style.borderColor = '#e9ecef';
-        }
-      });
-      const bgColorPicker = document.getElementById('bg-color-picker');
-      const textColorPicker = document.getElementById('text-color-picker');
-      if (bgColorPicker) bgColorPicker.value = theme.bgGradient.includes('#') ? theme.bgGradient.match(/#[0-9A-Fa-f]{6}/)[0] : '#667eea';
-      if (textColorPicker) textColorPicker.value = theme.textColor;
-    }
-    function customizeTab(choice) {
-      const configs = {
-        'google-search-calculator': { title: 'Calculator - Google Search', favicon: 'https://www.google.com/favicon.ico' },
-        'google-classroom': { title: 'Google Classroom', favicon: 'https://ssl.gstatic.com/classroom/favicon.png' },
-        'google-drive': { title: 'Google Drive', favicon: 'https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico' },
-        'google-docs': { title: 'Google Docs', favicon: 'https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png' },
-        'class-link': { title: 'Classlink', favicon: 'https://yt3.googleusercontent.com/731x2b0KFhofUurNoLQ5WoBXjoSegLD7xkDQMZSkWFEE3gbmbQDi0BhFQ2tcl3oEoS0DUsvMnA=s900-c-k-c0x00ffffff-no-rj' },
-        'schoology': { title: 'Schoology', favicon: 'https://wcsinnovate.com/wp-content/uploads/2020/08/schoology-logo.jpg' }
-      };
-      if (configs[choice]) {
-        localStorage.setItem('tabDisguise', choice);
-        document.title = configs[choice].title;
-        document.getElementById('favicon').href = configs[choice].favicon;
-      }
-    }
-    function changeBackgroundColor(color) {
-      localStorage.setItem('bgColor', color);
-      document.body.style.background = `linear-gradient(135deg, ${color} 0%, ${adjustBrightness(color, -20)} 100%)`;
-    }
-    function changeTextColor(color) {
-      localStorage.setItem('textColor', color);
-      document.body.style.color = color;
-      const headers = document.querySelectorAll('.header h1, .header p');
-      headers.forEach(header => { header.style.color = color; });
-    }
-    function changeFont(font) {
-      localStorage.setItem('fontFamily', font);
-      document.body.style.fontFamily = font;
-    }
-    function restoreCustomizations() {
-      const savedTheme = localStorage.getItem('selectedTheme');
-      const themeSelect = document.getElementById('theme-select');
-      if ((savedTheme || savedTheme === "") && themeSelect) {
-        themeSelect.value = savedTheme || "Default";
-        applyTheme(savedTheme || "Default");
-      }
-      const savedTab = localStorage.getItem('tabDisguise');
-      const tabSelect = document.getElementById('customize-tab-select');
-      if (savedTab && tabSelect) {
-        tabSelect.value = savedTab;
-        customizeTab(savedTab);
-      }
-      const savedBg = localStorage.getItem('bgColor');
-      const bgColorPicker = document.getElementById('bg-color-picker');
-      if (savedBg && bgColorPicker) {
-        bgColorPicker.value = savedBg;
-        changeBackgroundColor(savedBg);
-      }
-      const savedText = localStorage.getItem('textColor');
-      const textColorPicker = document.getElementById('text-color-picker');
-      if (savedText && textColorPicker) {
-        textColorPicker.value = savedText;
-        changeTextColor(savedText);
-      }
-      const savedFont = localStorage.getItem('fontFamily');
-      const fontSelect = document.getElementById('font-select');
-      if (savedFont && fontSelect) {
-        fontSelect.value = savedFont;
-        changeFont(savedFont);
-      }
+      `;
     }
     function showSecurlyExploitPage() {
       document.title = "Securly IndexedDB Exploit";
@@ -712,104 +313,47 @@
         </div>
       `;
     }
+    function setupExploitImageClicks() {
+      const img1 = document.getElementById('securly-exploit-img');
+      if (img1) {
+        img1.addEventListener('click', showSecurlyExploitPage);
+        img1.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') showSecurlyExploitPage();
+        });
+      }
+      const img5 = document.getElementById('lightspeed-exploit-img');
+      if (img5) {
+        img5.addEventListener('click', function() {
+          window.open('https://blobby-boi.github.io/LightSPED-Killer-Agent/', '_blank');
+        });
+        img5.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ')
+            window.open('https://blobby-boi.github.io/LightSPED-Killer-Agent/', '_blank');
+        });
+      }
+    }
     function switchTab(tabName, element) {
       document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-      element.classList.add('active');
+      if (element) element.classList.add('active');
       const contentArea = document.getElementById('content-area');
-      contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
       if (tabName === 'exploits') {
+        contentArea.innerHTML = getExploitsContent();
         document.title = "Exploits for modern blockers";
-        setTimeout(() => {
-          const img = document.getElementById('securly-exploit-img');
-          if (img) {
-            img.addEventListener('click', showSecurlyExploitPage);
-            img.addEventListener('keydown', function(e) {
-              if (e.key === 'Enter' || e.key === ' ') showSecurlyExploitPage();
-            });
-          }
-        }, 0);
+        setTimeout(setupExploitImageClicks, 0);
+      } else if (tabName === 'extensions') {
+        location.reload();
       } else {
+        contentArea.innerHTML = `<h2>Coming Soon</h2>`;
         document.title = "Extension Info";
       }
-      if (tabName === 'customize') setTimeout(restoreCustomizations, 0);
-    }
-    function openProxyUrl(url) {
-      if (!url) { alert("Please enter a valid URL."); return; }
-      const win = window.open();
-      const iframe = win.document.createElement('iframe');
-      iframe.style.width = "100%";
-      iframe.style.height = "100%";
-      iframe.style.border = "none";
-      iframe.src = url;
-      win.document.body.style.margin = "0";
-      win.document.body.style.height = "100vh";
-      win.document.body.appendChild(iframe);
-    }
-    function openSelectedProxy() {
-      const select = document.getElementById('proxy-select');
-      const choice = select.value;
-      if (!choice) { alert('Please select a proxy first.'); return; }
-      const proxyUrls = {
-        'interstellar': "https://quick-geometric-lessons.knr.cl",
-        'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
-        'bolt': "https://zscaler.casarosalba.com/",
-        'doge': [
-          "https://ryan-chen-has-over-15-different-girlfriends.knr.cl/",
-          "https://ryanchenistotallynotgaytrust.awhdaddyawh.knr.cl/",
-          "https://ryan-chen-is-very-sigmafrfr.daddyawhawh.notsoskibidi.knr.cl/"
-        ],
-        'evadion': [
-          "https://evadion.on-to.space/",
-          "https://evadion.pages.dev/",
-          "https://evadion.github.io/",
-          "https://evadion.netlify.app/",
-          "https://evadion.org/"
-        ],
-        'terbium': [
-          "https://algebramasters.online/",
-          "https://chempioneers.online/"
-        ],
-        'tide': [
-          "https://tide-tau.vercel.app/",
-          "https://tidev2.netlify.app/",
-          "https://xxmizzeryxx.github.io/Tide/",
-          "https://tide-git-main-xxmizzeryxxs-projects.vercel.app/",
-          "https://tide-xxmizzeryxxs-projects.vercel.app/",
-          "https://tide-psi.vercel.app/",
-          "https://tide-mizzerys-projects.vercel.app/",
-          "https://tidev3.w3spaces.com/",
-          "https://tide-xxmizzeryxx.wasmer.app/"
-        ],
-        'acorn': [
-          "https://the-acornz.github.io/",
-          "https://acornz.on-to.space/"
-        ]
-      };
-      let url = proxyUrls[choice];
-      if (Array.isArray(url)) url = url[Math.floor(Math.random() * url.length)];
-      openProxyUrl(url);
-    }
-    function launchCustomUrl() {
-      const input = document.getElementById('custom-proxy-url');
-      let url = input.value.trim();
-      if (!url) { alert('Please enter a URL first.'); return; }
-      if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
-      openProxyUrl(url);
-    }
-    function clearSettings() {
-      localStorage.clear();
-      window.location.reload();
     }
     window.onload = () => {
-      document.getElementById('content-area').innerHTML = contentData.extensions;
-      const savedTheme = localStorage.getItem('selectedTheme');
-      applyTheme(savedTheme || "Default");
-      const savedBg = localStorage.getItem('bgColor');
-      if (savedBg) changeBackgroundColor(savedBg);
-      const savedText = localStorage.getItem('textColor');
-      if (savedText) changeTextColor(savedText);
-      const savedFont = localStorage.getItem('fontFamily');
-      if (savedFont) changeFont(savedFont);
+      document.getElementById('content-area').innerHTML = `<h2>Welcome!</h2><p>Please select a tab.</p>`;
+      document.getElementById('tab-exploits').onclick = function() { switchTab('exploits', this); };
+      document.getElementById('tab-extensions').onclick = function() { switchTab('extensions', this); };
+      document.getElementById('tab-customize').onclick = function() { switchTab('customize', this); };
+      document.getElementById('tab-proxy').onclick = function() { switchTab('proxy', this); };
+      document.getElementById('tab-credits').onclick = function() { switchTab('credits', this); };
     };
     document.body.style.backgroundColor = "darkblue";
   </script>
