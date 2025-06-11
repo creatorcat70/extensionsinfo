@@ -161,6 +161,7 @@
       transition: transform 0.15s;
       max-width: 220px;
       object-fit: contain;
+      cursor: pointer;
     }
     .exploit-logo-img:hover {
       transform: scale(1.07);
@@ -228,6 +229,51 @@
       margin: 0;
       letter-spacing: 0.01em;
     }
+    .blank-exploit-page {
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 48px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(102,126,234,0.09);
+      padding: 32px 30px 32px 30px;
+      font-size: 1.13rem;
+      color: #222;
+    }
+    .blank-exploit-page h2 {
+      font-size: 1.5rem;
+      color: #667eea;
+      margin-bottom: 14px;
+    }
+    .blank-exploit-page code, .blank-exploit-page kbd {
+      background: #f2f2ff;
+      color: #444;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 1.04em;
+      margin: 0 2px;
+    }
+    .blank-exploit-page ul, .blank-exploit-page ol {
+      margin-left: 24px;
+      margin-bottom: 13px;
+    }
+    .blank-exploit-page .subtitle {
+      color: #444;
+      font-size: 1.09rem;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .blank-exploit-page .badgex {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-size: 0.96em;
+      font-weight: 600;
+      background: #f0fff4;
+      color: #38a169;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
     @media (max-width: 900px) {
       .exploit-logos-row { gap: 10px; }
       .exploit-logo-img { height: 48px; padding: 5px; }
@@ -235,6 +281,7 @@
     @media (max-width: 600px) {
       .exploit-logos-row { gap: 5px; }
       .exploit-logo-img { height: 36px; padding: 2px; }
+      .blank-exploit-page { padding: 13px 2vw; }
     }
     .text-center { text-align: center; }
     .mb-20 { margin-bottom: 20px; }
@@ -268,8 +315,7 @@
   </div>
   <script>
     const contentData = {
-      extensions: `
-        <h2>Extension Monitor</h2>
+      extensions: `<h2>Extension Monitor</h2>
         <p class="mb-20">Information about extensions running on your device and tools to manage them.</p>
         <h3>Monitoring Extensions</h3>
         <div class="extension-grid">
@@ -328,10 +374,8 @@
               <a href="https://docs.titaniumnetwork.org/kajigs/rigtools/" target="_blank" class="btn btn-secondary" style="margin-top: 10px; padding: 8px 16px; font-size: 12px;">Learn More</a>
             </div>
           </div>
-        </div>
-      `,
-      customize: `
-        <h2>Customize Experience</h2>
+        </div>`,
+      customize: `<h2>Customize Experience</h2>
         <p class="mb-20">Personalize your page appearance and tab disguises.</p>
         <div class="form-group">
           <label class="form-label">Quick Themes</label>
@@ -377,10 +421,8 @@
             <option value="'Lucida Console', monospace">Lucida Console</option>
           </select>
         </div>
-        <button class="btn btn-secondary" onclick="clearSettings()">Reset Customizations</button>
-      `,
-      proxy: `
-        <h2>Proxy Tools</h2>
+        <button class="btn btn-secondary" onclick="clearSettings()">Reset Customizations</button>`,
+      proxy: `<h2>Proxy Tools</h2>
         <p class="mb-20">Access proxy services and launch custom URLs safely.</p>
         <div class="form-group">
           <label class="form-label">Custom URL Launcher</label>
@@ -405,12 +447,10 @@
             <option value="acorn">Acorn</option>
           </select>
         </div>
-        <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>
-      `,
-      exploits: `
-        <h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
+        <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>`,
+      exploits: `<h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
         <div class="exploit-logos-row">
-          <img class="exploit-logo-img" src="https://pbs.twimg.com/profile_images/1282532266535612416/ctwlOq45_400x400.png" alt="Securly">
+          <img class="exploit-logo-img" id="securly-exploit-img" src="https://pbs.twimg.com/profile_images/1282532266535612416/ctwlOq45_400x400.png" alt="Securly" tabindex="0">
           <img class="exploit-logo-img" src="https://pbs.twimg.com/profile_images/1825612745296723968/y8IIQwO0_400x400.png" alt="GoGuardian">
           <img class="exploit-logo-img" src="https://media.licdn.com/dms/image/v2/C4D0BAQFax2qhFBl5Gw/company-logo_200_200/company-logo_200_200/0/1674567535151/blocksi_logo?e=2147483647&v=beta&t=vaEwFRCnAg9kL8gZsVFZF4cucE4mYb6sYrPHKeW1Rc8" alt="Blocksi">
           <img class="exploit-logo-img" src="https://www.iboss.com/storage/2022/09/500x144-logo-black@2x.png" alt="iBoss">
@@ -437,10 +477,8 @@
           <p style="font-size:1.1rem;max-width:600px;margin: 0 auto;">
             Click a blocker image above to learn more about possible exploits and bypasses for that platform (coming soon).
           </p>
-        </div>
-      `,
-      credits: `
-        <h2>Credits</h2>
+        </div>`,
+      credits: `<h2>Credits</h2>
         <p class="mb-20">Thanks to the contributors who made this project possible.</p>
         <div class="credits-grid">
           <div class="credit-card">
@@ -494,11 +532,9 @@
               </div>
             </div>
           </a>
-        </div>
-      `
+        </div>`
     };
 
-    // JS functions for theming, customization, proxy, and tab switching
     const themes = {
       "Navy": { bgGradient: "linear-gradient(135deg, #001f3f 0%, #003366 100%)", textColor: "#FFFFFF", cardBg: "#f8f9fa", cardText: "#333", fontFamily: "Arial, sans-serif" },
       "Wave": { bgGradient: "linear-gradient(135deg, #89CFF0 0%, #4682B4 100%)", textColor: "#001F3F", cardBg: "#ffffff", cardText: "#001F3F", fontFamily: "'Courier New', monospace" },
@@ -637,6 +673,45 @@
         changeFont(savedFont);
       }
     }
+    function showSecurlyExploitPage() {
+      document.title = "Securly IndexedDB Exploit";
+      document.getElementById('content-area').innerHTML = `
+        <div class="blank-exploit-page">
+          <h2>Securly IndexedDB Force Stop Exploit</h2>
+          <div class="subtitle">TO DO THIS YOU NEED:</div>
+          <ul>
+            <li>Access to <code>chrome://indexeddb-internals</code></li>
+            <li>A blocking extension that uses IndexedDB <b>(e.g. Securly)</b></li>
+          </ul>
+          <ol>
+            <li>Go to <code>chrome://indexeddb-internals</code></li>
+            <li>Scroll down till you see <code>chrome-extension://(securly extension id)</code></li>
+          </ol>
+          <div style="margin-bottom:8px;">
+            <b>Typically:</b>
+            <code>joflmkccibkooplaeoinecjbmdebglab</code> or 
+            <code>iheobagjkfklnlikgihanlhcddjoihkg</code>
+            <br>
+            Also <code>ckecmkbnoanpgplccmnoikfmpcdladkc</code>
+          </div>
+          <ol start="3">
+            <li>Click <b>force stop</b></li>
+            <li>And boom, no more blocked websites</li>
+          </ol>
+          <div style="margin-bottom:8px;">
+            <i>Securly sometimes does kick back in (although it takes awhile) but all you have to do is force stop it again</i>
+          </div>
+          <div style="margin-top:18px;">
+            <span class="subtitle">EXTENSIONS CURRENTLY WORKING:</span><br>
+            Securly <span class="badgex">works</span>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="subtitle">EXTENSIONS NOT WORKING:</span><br>
+            GoGuardian, Lightspeed, Linewize, Blocksi, Iboss <span style="color:#c53030;">(not working)</span>
+          </div>
+        </div>
+      `;
+    }
     function switchTab(tabName, element) {
       document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
       element.classList.add('active');
@@ -644,6 +719,15 @@
       contentArea.innerHTML = contentData[tabName] || '<p>Content not found.</p>';
       if (tabName === 'exploits') {
         document.title = "Exploits for modern blockers";
+        setTimeout(() => {
+          const img = document.getElementById('securly-exploit-img');
+          if (img) {
+            img.addEventListener('click', showSecurlyExploitPage);
+            img.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter' || e.key === ' ') showSecurlyExploitPage();
+            });
+          }
+        }, 0);
       } else {
         document.title = "Extension Info";
       }
