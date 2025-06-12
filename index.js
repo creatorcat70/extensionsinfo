@@ -116,6 +116,7 @@ const tabContents = {
         </div>
         <button class="btn btn-primary" onclick="launchCustomUrl()">Launch</button>
       </div>
+      <p style="margin-top: 8px; color:#667eea; font-size:0.98rem;">Note: Many websites cannot be embedded due to browser and security restrictions. If the site opens blank, try the direct link instead.</p>
     </div>
     <div class="form-group">
       <label class="form-label">Select Proxy Service</label>
@@ -371,15 +372,7 @@ function restoreCustomizations() {
 
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
-  const win = window.open();
-  const iframe = win.document.createElement('iframe');
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-  iframe.style.border = "none";
-  iframe.src = url;
-  win.document.body.style.margin = "0";
-  win.document.body.style.height = "100vh";
-  win.document.body.appendChild(iframe);
+  window.open(url, '_blank');
 }
 
 function openSelectedProxy() {
