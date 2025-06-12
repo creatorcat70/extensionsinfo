@@ -372,7 +372,8 @@ function restoreCustomizations() {
 
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
-  window.open(url, '_blank');
+  const win = window.open('about:blank', '_blank');
+  if (win) win.location = url;
 }
 
 function openSelectedProxy() {
