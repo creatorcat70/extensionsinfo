@@ -242,6 +242,7 @@ const tabContents = {
       <select class="form-select" id="proxy-select">
         <option value="">Choose proxy service</option>
         <option value="interstellar">Interstellar</option>
+        <option value="rammerhead">Rammerhead</option>
         <option value="vplaza">Vplaza</option>
         <option value="bolt">Bolt</option>
         <option value="doge">Doge</option>
@@ -500,13 +501,25 @@ function openSelectedProxy() {
   const choice = select.value;
   if (!choice) { alert('Please select a proxy first.'); return; }
   const proxyUrls = {
-    'interstellar': "https://quick-geometric-lessons.knr.cl",
+    'interstellar': ["https://quick-geometric-lessons.knr.cl","https://quick-geometry-lessons.knr.cl","https://quick-math-lessons.knr.cl",]
+    'rammerhead': [
+    "https://homework-help.ghostnation.org",
+     "https://huieurammarda.allez.la/",
+     "https://banana123.macao.org/",
+     "https://rammerdaze.miguelarevalo.es/",
+     "https://naninisiyoukamayottyau.allez.la/",
+     "https://addition.chillyparrotmath.cloudns.ch/",
+     "https://www.classroom.google.com.l5.ca/"
+    ],
+  
     'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
     'bolt': ["https://zscaler.casarosalba.com/","https://andrewnotgay.trustmi.cl"],
     'doge': [
       "https://ryan-chen-has-over-15-different-girlfriends.knr.cl/",
       "https://ryanchenistotallynotgaytrust.awhdaddyawh.knr.cl/",
-      "https://ryan-chen-is-very-sigmafrfr.daddyawhawh.notsoskibidi.knr.cl/"
+      "https://ryan-chen-is-very-sigmafrfr.daddyawhawh.notsoskibidi.knr.cl/",
+      "https://backupforandrew.eduinnova.cl"
+      
     ],
     'evadion': [
       "https://evadion.on-to.space/",
