@@ -563,25 +563,8 @@ function launchCustomUrl() {
       let url = input.value.trim();
       if (!url) { alert('Please enter a URL first.'); return; }
       if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
-      // Always open about:blank
-      const win = window.open('about:blank');
-      if (!win) { alert("Popup blocked!"); return; }
-      // Write the iframe into the new tab
-      win.document.write(`
-        <html>
-          <head>
-            <title>${url}</title>
-            <style>
-              html, body { height: 100%; margin: 0; padding: 0; }
-              iframe { width: 100vw; height: 100vh; border: none; display: block; }
-            </style>
-          </head>
-          <body>
-            <iframe src="${url}" allowfullscreen></iframe>
-          </body>
-        </html>
-      `);
-      win.document.close();
+      const win = window.open('about:blank', '_blank');
+      if (win) win.location.href = url;
     }
 
 function showSecurlyExploitPage() {
