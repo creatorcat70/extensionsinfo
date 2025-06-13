@@ -559,12 +559,23 @@ function openSelectedProxy() {
 }
 
 function launchCustomUrl() {
-  const input = document.getElementById('custom-proxy-url');
-  let url = input.value.trim();
-  if (!url) { alert('Please enter a URL first.'); return; }
-  if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
-  openProxyUrl(url);
-}
+      const input = document.getElementById('custom-proxy-url');
+      let url = input.value.trim();
+      if (!url) { alert('Please enter a URL first.'); return; }
+      if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
+      // open in new window with iframe
+      const win = window.open();
+      if (!win) { alert("Popup blocked!"); return; }
+      win.document.body.style.margin = "0";
+      win.document.body.style.height = "100vh";
+      let iframe = win.document.createElement('iframe');
+      iframe.style.width = "100vw";
+      iframe.style.height = "100vh";
+      iframe.style.border = "none";
+      iframe.src = url;
+      win.document.body.appendChild(iframe);
+      win.document.title = url;
+    }
 
 function showSecurlyExploitPage() {
   document.title = "Securly IndexedDB Exploit";
