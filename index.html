@@ -235,12 +235,13 @@ const tabContents = {
         </div>
         <button class="btn btn-primary" onclick="launchCustomUrl()">Launch</button>
       </div>
-      <p style="margin-top: 8px; color:#667eea; font-size:0.98rem;">Note: The custom site blanker is not working right now. Please use https://jsitor.com/XjLDi82R7KET instead as a alternative. </p>
+      <p style="margin-top: 8px; color:#667eea; font-size:0.98rem;">Note: The custom site blanker now launches in about:blank with full cloaking. </p>
     </div>
     <div class="form-group">
       <label class="form-label">Select Proxy Service</label>
       <select class="form-select" id="proxy-select">
         <option value="">Choose proxy service</option>
+        <option value="old discord working">Hummus</option>
         <option value="interstellar">Interstellar</option>
         <option value="rammerhead">Rammerhead</option>
         <option value="vplaza">Vplaza</option>
@@ -342,6 +343,8 @@ const tabContents = {
       </a>
     </div>`
 };
+
+// (All theme and customization functions unchanged for brevity)
 
 function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
@@ -492,8 +495,37 @@ function restoreCustomizations() {
 
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
+  // Open with about:blank cloak
   const win = window.open('about:blank', '_blank');
-  if (win) win.location.href = url;
+  if (win) {
+    win.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cloaked Proxy</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            html, body { height:100%; margin:0; padding:0; background: #fff; overflow:hidden; }
+            iframe { width:100vw; height:100vh; border:none; display:block; }
+            ::-webkit-scrollbar { width: 0 !important }
+          </style>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              document.title = 'Calculator - Google Search';
+              var link = document.createElement('link');
+              link.rel = 'icon';
+              link.href = 'https://www.google.com/favicon.ico';
+              document.head.appendChild(link);
+            });
+          </script>
+        </head>
+        <body>
+          <iframe src="${url.replace(/"/g, '&quot;')}" allowfullscreen sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>
+        </body>
+      </html>
+    `);
+    win.document.close();
+  }
 }
 
 function openSelectedProxy() {
@@ -501,11 +533,13 @@ function openSelectedProxy() {
   const choice = select.value;
   if (!choice) { alert('Please select a proxy first.'); return; }
   const proxyUrls = {
+    'old discord working': [
+      "https://hummus.sys42.net"
+    ],
     'interstellar': [
       "https://quick-geometric-lessons.knr.cl",
       "https://quick-geometry-lessons.knr.cl",
       "https://quick-math-lessons.knr.cl"
-
     ],
     'rammerhead': [
      "https://homework-help.ghostnation.org",
@@ -515,9 +549,7 @@ function openSelectedProxy() {
      "https://naninisiyoukamayottyau.allez.la/",
      "https://addition.chillyparrotmath.cloudns.ch/",
      "https://www.classroom.google.com.l5.ca/"
-    
     ],
-  
     'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
     'bolt': ["https://zscaler.casarosalba.com/","https://andrewnotgay.trustmi.cl"],
     'doge': [
@@ -560,19 +592,32 @@ function launchCustomUrl() {
   let url = input.value.trim();
   if (!url) { alert('Please enter a URL first.'); return; }
   if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
+  // Cloaked launcher in about:blank
   const win = window.open('about:blank', '_blank');
   if (win) {
     win.document.write(`
+      <!DOCTYPE html>
       <html>
         <head>
-          <title>${url}</title>
+          <title>Cloaked Site</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
-            html, body { height: 100%; margin: 0; padding: 0; }
-            iframe { width: 100vw; height: 100vh; border: none; display: block; }
+            html, body { height:100%; margin:0; padding:0; background: #fff; overflow:hidden; }
+            iframe { width:100vw; height:100vh; border:none; display:block; }
+            ::-webkit-scrollbar { width: 0 !important }
           </style>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              document.title = 'Calculator - Google Search';
+              var link = document.createElement('link');
+              link.rel = 'icon';
+              link.href = 'https://www.google.com/favicon.ico';
+              document.head.appendChild(link);
+            });
+          </script>
         </head>
         <body>
-          <iframe src="${url}" allowfullscreen></iframe>
+          <iframe src="${url.replace(/"/g, '&quot;')}" allowfullscreen sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>
         </body>
       </html>
     `);
