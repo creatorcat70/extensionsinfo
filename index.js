@@ -224,7 +224,7 @@ const tabContents = {
     </div>`
 };
 
-// ---- Utility: Theme/Customization ----
+// --- Theme & Customization ---
 function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
     const bg = window.getComputedStyle(card).backgroundColor;
@@ -372,7 +372,7 @@ function restoreCustomizations() {
   }
 }
 
-// ---- Proxy and Custom Launcher, with Iframe Blanker ----
+// --- Proxy and Custom Launcher, with Iframe Blanker ---
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
   // "Cloaked" about:blank with Google search disguise and iframe
@@ -466,7 +466,7 @@ function launchCustomUrl() {
   openProxyUrl(url);
 }
 
-// ---- Exploit Pages and Tab Switch ----
+// --- Exploit Pages and Tab Switch ---
 function showSecurlyExploitPage() {
   document.title = "Securly IndexedDB Exploit";
   document.getElementById('content-area').innerHTML = `
