@@ -1,3 +1,4 @@
+// -------- Tab Contents --------
 const tabContents = {
   extensions: `<h2>Extension Monitor</h2>
     <p class="mb-20">Information about extensions running on your device and tools to manage them.</p>
@@ -131,7 +132,7 @@ const tabContents = {
         <option value="tide">Tide</option>
         <option value="acorn">Acorn</option>
       </select>
-      <p> The passwords for Acorn, Tide, and Evadion are in their discord server. (On the credits page) <p>
+      <p> The passwords for Acorn, Tide, and Evadion are in their discord server. (On the credits page) </p>
     </div>
     <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>`,
   exploits: `<h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
@@ -207,7 +208,7 @@ const tabContents = {
           <img src="https://cdn.discordapp.com/avatars/1211851118561329172/0ec92421b3193377a717691869e31bc2?size=1024" alt="Evadion/Elusion" class="credit-avatar">
           <div class="credit-info">
             <h3>Evadion/Elusion</h3>
-            <p> Developers of the Evadion, Acorn, and Tide proxies. <p>
+            <p> Developers of the Evadion, Acorn, and Tide proxies. </p>
           </div>
         </div>
       </a>
@@ -216,13 +217,14 @@ const tabContents = {
           <img src="https://cdn.discordapp.com/avatars/1312086316439306280/bc16714687e41e09f3112a43bda8ef87?size=1024" alt="Unblockee" class="credit-avatar">
           <div class="credit-info">
             <h3>Unblockee</h3>
-            <p> makers of a html file that you are able to play games on. Cool. <p>
+            <p> makers of a html file that you are able to play games on. Cool. </p>
           </div>
         </div>
       </a>
     </div>`
 };
 
+// ---- Utility: Theme/Customization ----
 function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
     const bg = window.getComputedStyle(card).backgroundColor;
@@ -370,10 +372,40 @@ function restoreCustomizations() {
   }
 }
 
+// ---- Proxy and Custom Launcher, with Iframe Blanker ----
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
+  // "Cloaked" about:blank with Google search disguise and iframe
   const win = window.open('about:blank', '_blank');
-  if (win) win.location = url;
+  if (win) {
+    win.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Cloaked Proxy</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            html, body { height:100%; margin:0; padding:0; background: #fff; overflow:hidden; }
+            iframe { width:100vw; height:100vh; border:none; display:block; }
+            ::-webkit-scrollbar { width: 0 !important }
+          </style>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              document.title = 'Calculator - Google Search';
+              var link = document.createElement('link');
+              link.rel = 'icon';
+              link.href = 'https://www.google.com/favicon.ico';
+              document.head.appendChild(link);
+            });
+          </script>
+        </head>
+        <body>
+          <iframe src="${url.replace(/"/g, '&quot;')}" allowfullscreen sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>
+        </body>
+      </html>
+    `);
+    win.document.close();
+  }
 }
 
 function openSelectedProxy() {
@@ -381,9 +413,15 @@ function openSelectedProxy() {
   const choice = select.value;
   if (!choice) { alert('Please select a proxy first.'); return; }
   const proxyUrls = {
-    'interstellar': "https://quick-geometric-lessons.knr.cl",
-    'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
-    'bolt': "https://zscaler.casarosalba.com/",
+    'interstellar': [
+      "https://quick-geometric-lessons.knr.cl"
+    ],
+    'vplaza': [
+      "https://leave.reconectar.cl", "https://return.reconectar.cl"
+    ],
+    'bolt': [
+      "https://zscaler.casarosalba.com/"
+    ],
     'doge': [
       "https://ryan-chen-has-over-15-different-girlfriends.knr.cl/",
       "https://ryanchenistotallynotgaytrust.awhdaddyawh.knr.cl/",
@@ -428,6 +466,7 @@ function launchCustomUrl() {
   openProxyUrl(url);
 }
 
+// ---- Exploit Pages and Tab Switch ----
 function showSecurlyExploitPage() {
   document.title = "Securly IndexedDB Exploit";
   document.getElementById('content-area').innerHTML = `
