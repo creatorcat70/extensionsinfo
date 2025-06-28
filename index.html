@@ -568,30 +568,30 @@ function openSelectedProxy() {
   openProxyUrl(url);
 }
 
-function launchCustomUrl() {
-  const input = document.getElementById('custom-proxy-url');
-  let url = input.value.trim();
-  if (!url) { alert('Please enter a URL first.'); return; }
-  if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
-  const win = window.open('about:blank', '_blank');
-  if (win) {
-    win.document.write(`
-      <html>
-        <head>
-          <title>${url}</title>
-          <style>
-            html, body { height: 100%; margin: 0; padding: 0; }
-            iframe { width: 100vw; height: 100vh; border: none; display: block; }
-          </style>
-        </head>
-        <body>
-          <iframe src="${url}" allowfullscreen></iframe>
-        </body>
-      </html>
-    `);
-    win.document.close();
-  }
-}
+ function launchCustomUrl() {
+      const input = document.getElementById('custom-proxy-url');
+      let url = input.value.trim();
+      if (!url) {
+        alert('Please enter a URL first.');
+        return;
+      }
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'http://' + url;
+      }
+
+      const win = window.open('about:blank', '_blank');
+      if (win) {
+        const iframe = win.document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url;
+
+        win.document.body.style.margin = "0";
+        win.document.body.style.height = "100vh";
+        win.document.body.appendChild(iframe);
+      }
+    }
 
 function showSecurlyExploitPage() {
   document.title = "Securly IndexedDB Exploit";
