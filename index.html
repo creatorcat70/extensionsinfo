@@ -490,11 +490,24 @@ function restoreCustomizations() {
   }
 }
 
-function openProxyUrl(url) {
-  if (!url) { alert("Please enter a valid URL."); return; }
-  const win = window.open('about:blank', '_blank');
-  if (win) win.location.href = url;
-}
+ function openProxyUrl(url) {
+      if (!url) {
+        alert("Please enter a valid URL.");
+        return;
+      }
+      const win = window.open('about:blank', '_blank');
+      if (win) {
+        const iframe = win.document.createElement('iframe');
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+        iframe.src = url;
+        win.document.body.style.margin = "0";
+        win.document.body.style.height = "100vh";
+        win.document.body.appendChild(iframe);
+      }
+    }
+
 
 function openSelectedProxy() {
   const select = document.getElementById('proxy-select');
