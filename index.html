@@ -117,11 +117,6 @@
     <div class="content" id="content-area"></div>
   </div>
   <script>
-    // FULL JS CODE GOES HERE
-    // See the previous "main.js" code block, copy-paste from there
-    // (It is too large to paste again here.)
-    // If you want it explicitly pasted here, please say "PASTE FULL JS HERE"
-    // -------- Tab Contents --------
 const tabContents = {
   extensions: `<h2>Extension Monitor</h2>
     <p class="mb-20">Information about extensions running on your device and tools to manage them.</p>
@@ -240,13 +235,14 @@ const tabContents = {
         </div>
         <button class="btn btn-primary" onclick="launchCustomUrl()">Launch</button>
       </div>
-      <p style="margin-top: 8px; color:#667eea; font-size:0.98rem;">Note: Many websites cannot be embedded due to browser and security restrictions. If the site opens blank, try the direct link instead.</p>
+      <p style="margin-top: 8px; color:#667eea; font-size:0.98rem;">Note: The custom site blanker is not working right now. Please use https://jsitor.com/XjLDi82R7KET instead as a alternative. </p>
     </div>
     <div class="form-group">
       <label class="form-label">Select Proxy Service</label>
       <select class="form-select" id="proxy-select">
         <option value="">Choose proxy service</option>
         <option value="interstellar">Interstellar</option>
+        <option value="rammerhead">Rammerhead</option>
         <option value="vplaza">Vplaza</option>
         <option value="bolt">Bolt</option>
         <option value="doge">Doge</option>
@@ -255,7 +251,7 @@ const tabContents = {
         <option value="tide">Tide</option>
         <option value="acorn">Acorn</option>
       </select>
-      <p> The passwords for Acorn, Tide, and Evadion are in their discord server. (On the credits page) </p>
+      <p> The passwords for Acorn, Tide, and Evadion are in their discord server. (On the credits page) <p>
     </div>
     <button class="btn btn-primary" onclick="openSelectedProxy()" style="width: 100%;">Open Selected Proxy</button>`,
   exploits: `<h1 style="text-align:center;margin-top:0;">Exploits for modern blockers</h1>
@@ -331,7 +327,7 @@ const tabContents = {
           <img src="https://cdn.discordapp.com/avatars/1211851118561329172/0ec92421b3193377a717691869e31bc2?size=1024" alt="Evadion/Elusion" class="credit-avatar">
           <div class="credit-info">
             <h3>Evadion/Elusion</h3>
-            <p> Developers of the Evadion, Acorn, and Tide proxies. </p>
+            <p> Developers of the Evadion, Acorn, and Tide proxies. <p>
           </div>
         </div>
       </a>
@@ -340,14 +336,13 @@ const tabContents = {
           <img src="https://cdn.discordapp.com/avatars/1312086316439306280/bc16714687e41e09f3112a43bda8ef87?size=1024" alt="Unblockee" class="credit-avatar">
           <div class="credit-info">
             <h3>Unblockee</h3>
-            <p> makers of a html file that you are able to play games on. Cool. </p>
+            <p> makers of a html file that you are able to play games on. Cool. <p>
           </div>
         </div>
       </a>
     </div>`
 };
 
-// --- Theme & Customization ---
 function setContrastTextOnCards(textColor) {
   document.querySelectorAll('.content, .extension-card, .credit-card, .blank-exploit-page').forEach(card => {
     const bg = window.getComputedStyle(card).backgroundColor;
@@ -495,40 +490,10 @@ function restoreCustomizations() {
   }
 }
 
-// --- Proxy and Custom Launcher, with Iframe Blanker ---
 function openProxyUrl(url) {
   if (!url) { alert("Please enter a valid URL."); return; }
-  // "Cloaked" about:blank with Google search disguise and iframe
   const win = window.open('about:blank', '_blank');
-  if (win) {
-    win.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>Cloaked Proxy</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <style>
-            html, body { height:100%; margin:0; padding:0; background: #fff; overflow:hidden; }
-            iframe { width:100vw; height:100vh; border:none; display:block; }
-            ::-webkit-scrollbar { width: 0 !important }
-          </style>
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              document.title = 'Calculator - Google Search';
-              var link = document.createElement('link');
-              link.rel = 'icon';
-              link.href = 'https://www.google.com/favicon.ico';
-              document.head.appendChild(link);
-            });
-          </script>
-        </head>
-        <body>
-          <iframe src="${url.replace(/"/g, '&quot;')}" allowfullscreen sandbox="allow-scripts allow-forms allow-same-origin allow-popups"></iframe>
-        </body>
-      </html>
-    `);
-    win.document.close();
-  }
+  if (win) win.location.href = url;
 }
 
 function openSelectedProxy() {
@@ -537,18 +502,27 @@ function openSelectedProxy() {
   if (!choice) { alert('Please select a proxy first.'); return; }
   const proxyUrls = {
     'interstellar': [
-      "https://quick-geometric-lessons.knr.cl"
+      "https://quick-geometric-lessons.knr.cl",
+      "https://quick-geometry-lessons.knr.cl",
+      "https://quick-math-lessons.knr.cl"
+
     ],
-    'vplaza': [
-      "https://leave.reconectar.cl", "https://return.reconectar.cl"
+    'rammerhead': [
+     "https://homework-help.ghostnation.org",
+     "https://huieurammarda.allez.la/",
+     "https://banana123.macao.org/",
+     "https://rammerdaze.miguelarevalo.es/",
+     "https://naninisiyoukamayottyau.allez.la/",
+     "https://addition.chillyparrotmath.cloudns.ch/",
+     "https://www.classroom.google.com.l5.ca/"
+    
     ],
-    'bolt': [
-      "https://zscaler.casarosalba.com/"
-    ],
+  
+    'vplaza': ["https://leave.reconectar.cl", "https://return.reconectar.cl"],
+    'bolt': ["https://zscaler.casarosalba.com/","https://andrewnotgay.trustmi.cl"],
     'doge': [
-      "https://ryan-chen-has-over-15-different-girlfriends.knr.cl/",
-      "https://ryanchenistotallynotgaytrust.awhdaddyawh.knr.cl/",
-      "https://ryan-chen-is-very-sigmafrfr.daddyawhawh.notsoskibidi.knr.cl/"
+      "https://ryanchennotgay.trustmi.cl",
+      "https://illegals-in-my-yard.trustmi.cl"
     ],
     'evadion': [
       "https://evadion.on-to.space/",
@@ -586,10 +560,26 @@ function launchCustomUrl() {
   let url = input.value.trim();
   if (!url) { alert('Please enter a URL first.'); return; }
   if (!/^https?:\/\//i.test(url)) url = 'http://' + url;
-  openProxyUrl(url);
+  const win = window.open('about:blank', '_blank');
+  if (win) {
+    win.document.write(`
+      <html>
+        <head>
+          <title>${url}</title>
+          <style>
+            html, body { height: 100%; margin: 0; padding: 0; }
+            iframe { width: 100vw; height: 100vh; border: none; display: block; }
+          </style>
+        </head>
+        <body>
+          <iframe src="${url}" allowfullscreen></iframe>
+        </body>
+      </html>
+    `);
+    win.document.close();
+  }
 }
 
-// --- Exploit Pages and Tab Switch ---
 function showSecurlyExploitPage() {
   document.title = "Securly IndexedDB Exploit";
   document.getElementById('content-area').innerHTML = `
